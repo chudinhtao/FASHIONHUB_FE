@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-gold: #C5A880;
+  --color-primary-black: #000000;
+  --color-bg-light: #F9F9F9;
+  --color-border-gray: #E5E7EB;
+  
+  --font-outfit: Outfit, sans-serif;
+  --font-inter: Inter, sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-outfit);
+}
+
+/* Micro-animations and common styles */
+.transition-all-300 {
+  transition: all 0.3s ease-in-out;
+}
+
+.product-card-zoom:hover img {
+  transform: scale(1.05);
+}
+
+.elegant-button {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: var(--font-outfit);
+  transition: all 0.3s ease-in-out;
+  border-radius: 0px;
+}
+
+.elegant-button:hover {
+  background-color: #C5A880 !important;
+  color: #ffffff !important;
+}
