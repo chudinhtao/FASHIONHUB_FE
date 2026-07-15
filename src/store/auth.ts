@@ -1,11 +1,5 @@
 import { create } from 'zustand';
-
-interface User {
-  id: string;
-  email: string;
-  name: string;
-  role: 'CUSTOMER' | 'ADMIN';
-}
+import { User } from '@/types/api.types';
 
 interface AuthState {
   user: User | null;

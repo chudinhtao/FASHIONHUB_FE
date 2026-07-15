@@ -2,9 +2,27 @@
 
 @theme {
   --color-primary-gold: #C5A880;
+  --color-primaryGold: #C5A880;
   --color-primary-black: #000000;
   --color-bg-light: #F9F9F9;
+  --color-bgLight: #F9F9F9;
   --color-border-gray: #E5E7EB;
+  --color-borderGray: #E5E7EB;
+  
+  /* Additional standard colors to avoid hex hardcoding */
+  --color-bg-neutral: #F5F5F3;
+  --color-border-light: #EBEBEB;
+  --color-border-subtle: #F0F0F0;
+  --color-border-extra-light: #F5F5F5;
+  --color-bg-avatar: #F0EBE3;
+  --color-text-muted: #777777;
+  --color-text-gray: #999999;
+  --color-text-light: #888888;
+  --color-text-dark: #111111;
+  --color-text-medium: #666666;
+  --color-text-ink: #333333;
+  --color-text-normal: #555555;
+  --color-separator: #DDDDDD;
   
   --font-outfit: Outfit, sans-serif;
   --font-inter: Inter, sans-serif;
@@ -45,4 +63,35 @@ h1, h2, h3, h4, h5, h6 {
 .elegant-button:hover {
   background-color: #C5A880 !important;
   color: #ffffff !important;
+}
+
+/* Elegant Soft Borders Override */
+.elegant-input {
+  border-color: var(--color-border-gray) !important;
+  border-radius: 0px !important;
+  transition: all 0.3s ease;
+}
+
+.elegant-input:hover, .elegant-input:focus, .elegant-input-focused {
+  border-color: var(--color-primary-gold) !important;
+  box-shadow: 0 0 0 2px rgba(197, 168, 128, 0.1) !important;
+}
+
+/* Global Ant Design Inputs Softening */
+.ant-input, .ant-input-password, .ant-select-selector, .ant-input-number, .ant-input-affix-wrapper {
+  border-color: var(--color-border-gray) !important;
+  border-radius: 0px !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-input:hover, .ant-input:focus, 
+.ant-input-focused, 
+.ant-input-affix-wrapper:hover,
+.ant-input-affix-wrapper-focused,
+.ant-select-selector:hover, 
+.ant-select-focused .ant-select-selector,
+.ant-input-number:hover,
+.ant-input-number-focused {
+  border-color: var(--color-primary-gold) !important;
+  box-shadow: 0 0 0 2px rgba(197, 168, 128, 0.1) !important;
 }

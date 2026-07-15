@@ -1,0 +1,313 @@
+{
+  "auth": {
+    "email": "Email",
+    "emailPlaceholder": "example@email.com",
+    "password": "Mật khẩu",
+    "passwordPlaceholder": "••••••••",
+    "backToLogin": "Quay lại Đăng nhập",
+    "loading": "Đang xử lý...",
+    "brandName": "FASHIONHUB",
+    "brandSub": "Premium Clothing Store",
+    "terms": "Điều Khoản",
+    "privacy": "Bảo Mật",
+    "help": "Trợ Giúp",
+    "copyright": "Tất cả các quyền được bảo lưu.",
+    "loginTitle": "Đăng Nhập",
+    "loginSub": "Chào mừng quay trở lại cửa hàng của chúng tôi.",
+    "rememberMe": "Ghi nhớ đăng nhập",
+    "forgotPasswordLink": "Quên mật khẩu?",
+    "loginBtn": "Đăng nhập",
+    "noAccount": "Chưa có tài khoản?",
+    "registerNow": "Đăng ký ngay",
+    "loginSuccess": "Đăng nhập thành công!",
+    "registerTitle": "Đăng Ký Tài Khoản",
+    "registerSub": "Trở thành thành viên và trải nghiệm các đặc quyền độc quyền.",
+    "fullName": "Họ và tên",
+    "fullNamePlaceholder": "Nguyễn Văn A",
+    "phone": "Số điện thoại (Tùy chọn)",
+    "phonePlaceholder": "09XXXXXXXX",
+    "address": "Địa chỉ giao hàng (Tùy chọn)",
+    "addressPlaceholder": "Số nhà, Tên đường, Quận/Huyện...",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "confirmPasswordPlaceholder": "Nhập lại mật khẩu",
+    "registerBtn": "Đăng ký tài khoản",
+    "hasAccount": "Đã có tài khoản?",
+    "loginNow": "Đăng nhập ngay",
+    "registerSuccess": "Đăng ký tài khoản thành công!",
+    "forgotTitle": "Quên Mật Khẩu",
+    "forgotSub": "Nhập địa chỉ email của bạn để bắt đầu khôi phục mật khẩu.",
+    "emailReg": "Email đăng ký",
+    "forgotBtn": "Gửi yêu cầu khôi phục",
+    "forgotSuccess": "Yêu cầu thành công!",
+    "forgotDesc": "Đã sinh mã xác thực khôi phục mật khẩu.",
+    "resetTitle": "Đặt Lại Mật Khẩu",
+    "resetSub": "Nhập mật khẩu mới cho tài khoản của bạn bên dưới.",
+    "newPassword": "Mật khẩu mới",
+    "newPasswordPlaceholder": "Tối thiểu 6 ký tự",
+    "confirmNewPassword": "Xác nhận mật khẩu mới",
+    "confirmNewPasswordPlaceholder": "Nhập lại mật khẩu mới",
+    "resetBtn": "Cập nhật mật khẩu mới",
+    "resetTokenMissing": "Chú ý: Thiếu hoặc sai Token khôi phục mật khẩu. Vui lòng gửi lại yêu cầu.",
+    "resetSuccess": "Đặt lại mật khẩu thành công!",
+    "resetSuccessDesc": "Vui lòng đăng nhập bằng mật khẩu mới.",
+    "forbiddenTitle": "Từ Chối Truy Cập",
+    "forbiddenSub": "403 - FORBIDDEN",
+    "forbiddenDesc": "Bạn không có quyền hạn phù hợp để truy cập vào trang này. Khu vực này được giới hạn nghiêm ngặt và chỉ khả dụng đối với tài khoản cấp Quản trị viên (Admin).",
+    "backToHome": "Quay lại trang chủ",
+    "loginOther": "Đăng nhập tài khoản khác",
+    "profileTitle": "Thông tin tài khoản cá nhân",
+    "profileSub": "Tài Khoản",
+    "collections": "Bộ Sưu Tập",
+    "about": "Giới Thiệu",
+    "store": "Cửa Hàng",
+    "id": "Mã định danh",
+    "joinedDate": "Ngày tham gia",
+    "role": "Quyền hạn truy cập",
+    "adminRole": "Quản trị viên hệ thống (Admin)",
+    "customerRole": "Khách hàng thành viên (Customer)",
+    "addressDefault": "Địa chỉ giao nhận hàng mặc định",
+    "addressEmpty": "Chưa cập nhật thông tin địa chỉ giao hàng.",
+    "logoutBtn": "Đăng xuất",
+    "logoutSuccess": "Đăng xuất thành công.",
+    "logoutGoodbye": "Hẹn gặp lại bạn lần sau!"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "BỘ SƯU TẬP MÙA HÈ 2026",
+      "title": "Khai Phóng Sự Tinh Tế & Phóng Khoáng",
+      "description": "Trải nghiệm phom dáng tối giản hiện đại được định hình từ các loại chất liệu dệt tự nhiên thượng hạng.",
+      "cta": "KHÁM PHÁ NGAY"
+    },
+    "categories": {
+      "title": "BỘ SƯU TẬP NỔI BẬT",
+      "subtitle": "Danh Mục Phổ Biến",
+      "mens": "ĐỒ NAM",
+      "polos": "ÁO POLO",
+      "accessories": "PHỤ KIỆN",
+      "explore": "Xem chi tiết >"
+    },
+    "arrivals": {
+      "title": "MỚI VỀ TRONG TUẦN",
+      "subtitle": "Sản Phẩm Lựa Chọn"
+    }
+  },
+  "catalog": {
+    "breadcrumbs": {
+      "home": "Trang chủ",
+      "shop": "Cửa hàng"
+    },
+    "filter": {
+      "search": "Tìm Kiếm",
+      "searchPlaceholder": "Tìm sản phẩm...",
+      "categories": "Danh Mục",
+      "noCategories": "Không có danh mục",
+      "price": "Khoảng Giá",
+      "clearAll": "XÓA TẤT CẢ BỘ LỌC"
+    },
+    "price": {
+      "under200": "Dưới 200.000 ₫",
+      "200to500": "200.000 ₫ - 500.000 ₫",
+      "over500": "Trên 500.000 ₫"
+    },
+    "toolbar": {
+      "allProducts": "TẤT CẢ SẢN PHẨM",
+      "sortBy": "Sắp xếp:"
+    },
+    "sort": {
+      "newest": "Mới Nhất",
+      "priceAsc": "Giá Tăng Dần",
+      "priceDesc": "Giá Giảm Dần"
+    },
+    "state": {
+      "errorTitle": "Không thể tải danh sách sản phẩm",
+      "retry": "Thử Lại",
+      "emptyTitle": "Không tìm thấy sản phẩm phù hợp",
+      "emptySubtitle": "Thử điều chỉnh lại bộ lọc giá hoặc danh mục đã chọn.",
+      "clearFilters": "Xóa Bộ Lọc"
+    },
+    "pagination": {
+      "showInfo": "Hiển thị {{count}} trên tổng số {{total}} sản phẩm"
+    }
+  },
+  "product": {
+    "breadcrumbs": {
+      "home": "Trang chủ",
+      "shop": "Cửa hàng"
+    },
+    "noDescription": "Sản phẩm không có mô tả chi tiết.",
+    "fields": {
+      "color": "Màu sắc",
+      "size": "Kích cỡ (Size)"
+    },
+    "stock": {
+      "available": "Tồn kho của phân loại: Còn lại {{count}} sản phẩm",
+      "outOfStock": "Phân loại này hiện đã HẾT HÀNG"
+    },
+    "cta": {
+      "addToCart": "THÊM VÀO GIỎ HÀNG",
+      "outOfStock": "HẾT HÀNG"
+    },
+    "toast": {
+      "invalidVariant": "Phân loại sản phẩm không hợp lệ",
+      "outOfStock": "Sản phẩm đã hết hàng",
+      "addSuccess": "Đã thêm sản phẩm vào giỏ hàng!"
+    },
+    "state": {
+      "errorTitle": "Không thể tải thông tin sản phẩm",
+      "retry": "Thử Lại"
+    }
+  },
+  "error": {
+    "404": {
+      "title": "Không tìm thấy trang yêu cầu",
+      "description": "Đường dẫn bạn truy cập không tồn tại hoặc đã được thay đổi cấu trúc liên kết. Vui lòng quay lại trang chủ cửa hàng.",
+      "cta": "QUAY LẠI TRANG CHỦ"
+    }
+  },
+  "admin": {
+    "menu": {
+      "categories": "Quản Lý Danh Mục",
+      "products": "Quản Lý Sản Phẩm"
+    },
+    "breadcrumb": {
+      "admin": "Quản trị",
+      "categories": "Danh mục",
+      "products": "Sản phẩm"
+    },
+    "topbar": {
+      "logout": "Đăng Xuất"
+    },
+    "categories": {
+      "title": "Quản Lý Danh Mục",
+      "subtitle": "Tạo lập, sửa đổi cấu trúc cây danh mục sản phẩm của cửa hàng.",
+      "addBtn": "Thêm Danh Mục",
+      "edit": "Sửa",
+      "delete": "Xóa",
+      "colName": "Tên Danh Mục",
+      "colActions": "Thao Tác",
+      "deleteConfirm": "Bạn chắc chắn muốn xóa danh mục \"{{name}}\"? Thao tác này sẽ xóa vĩnh viễn danh mục này khỏi hệ thống.",
+      "createSuccess": "Tạo danh mục thành công",
+      "createError": "Lỗi khi tạo danh mục",
+      "updateSuccess": "Cập nhật danh mục thành công",
+      "updateError": "Lỗi khi cập nhật danh mục",
+      "deleteSuccess": "Xóa danh mục thành công",
+      "deleteError": "Lỗi khi xóa danh mục",
+      "modalTitleCreate": "Tạo Danh Mục Mới",
+      "modalTitleEdit": "Cập Nhật Danh Mục",
+      "modalFieldName": "Tên danh mục *",
+      "modalFieldNamePlaceholder": "Ví dụ: Áo Polo",
+      "modalFieldParent": "Danh mục cha",
+      "modalParentOptionRoot": "Không có (Danh mục gốc)",
+      "modalCancel": "Hủy",
+      "modalSave": "Lưu Lại",
+      "nameRequired": "Tên danh mục không được để trống",
+      "errorTitle": "Lỗi kết nối máy chủ",
+      "retry": "Thử lại",
+      "emptyTitle": "Không có danh mục nào",
+      "emptyDesc": "Bắt đầu thiết lập cửa hàng bằng cách thêm danh mục hàng đầu tiên của bạn."
+    },
+    "products": {
+      "title": "Quản Lý Sản Phẩm",
+      "subtitle": "Quản lý kho sản phẩm, hình ảnh và số lượng biến thể tồn kho của cửa hàng.",
+      "addBtn": "Thêm Sản Phẩm",
+      "searchPlaceholder": "Tìm tên sản phẩm...",
+      "filterCategoryAll": "Tất Cả Danh Mục",
+      "showCount": "Hiển thị {{count}} kết quả",
+      "colImage": "Ảnh",
+      "colName": "Tên Sản Phẩm",
+      "colCategory": "Danh Mục",
+      "colPrice": "Giá Bán",
+      "colStock": "Tổng Tồn Kho",
+      "colActions": "Thao Tác",
+      "edit": "Sửa",
+      "delete": "Xóa",
+      "deleteConfirm": "Bạn chắc chắn muốn xóa sản phẩm \"{{name}}\"? Thao tác này sẽ xóa vĩnh viễn sản phẩm và các biến thể liên quan.",
+      "deleteSuccess": "Xóa sản phẩm thành công",
+      "deleteError": "Lỗi khi xóa sản phẩm",
+      "createSuccess": "Tạo sản phẩm thành công",
+      "createError": "Lỗi khi tạo sản phẩm",
+      "updateSuccess": "Cập nhật sản phẩm thành công",
+      "updateError": "Lỗi khi cập nhật sản phẩm",
+      "errorTitle": "Lỗi tải dữ liệu sản phẩm",
+      "retry": "Thử lại",
+      "emptyTitle": "Không tìm thấy sản phẩm",
+      "emptyDesc": "Thử điều chỉnh từ khóa hoặc reset bộ lọc của bạn.",
+      "resetFilters": "Reset bộ lọc",
+      "paginationInfo": "Hiển thị dòng {{start}} - {{end}} của tổng số {{total}} dòng",
+      "createTitle": "Tạo Sản Phẩm Mới",
+      "createSubtitle": "Bố cục hai cột chuyên nghiệp, hiển thị trực quan thông tin sản phẩm.",
+      "editTitle": "Cập Nhật Sản Phẩm",
+      "editSubtitle": "Cập nhật kho hàng, điều chỉnh thông tin chung và hình ảnh.",
+      "cancelBtn": "Hủy Bỏ"
+    },
+    "dashboard": {
+      "title": "Bảng Điều Khiển Quản Trị",
+      "subtitle": "Chào mừng quay trở lại hệ thống quản lý FashionHub.",
+      "statsProducts": "Sản Phẩm Đang Bán",
+      "statsCategories": "Danh Mục Hệ Thống",
+      "statsSales": "Doanh Thu Tháng",
+      "statsOrders": "Đơn Hàng Mới",
+      "shortcuts": "Lối Tắt Quản Trị Nhanh",
+      "activity": "Nhật Ký Hoạt Động Gần Đây",
+      "actProductCreated": "Đã thêm sản phẩm mới",
+      "actCategoryCreated": "Đã tạo danh mục thời trang mới",
+      "actAdminLogged": "Tài khoản quản trị đăng nhập thành công"
+    },
+    "form": {
+      "titleInfo": "1. Thông tin chung & Giá bán",
+      "name": "Tên sản phẩm *",
+      "slug": "Slug (Đường dẫn thân thiện) *",
+      "category": "Danh mục ngành hàng *",
+      "selectCategory": "Chọn danh mục...",
+      "price": "Giá bán hiện tại (đ) *",
+      "originalPrice": "Giá bán gốc (đ)",
+      "description": "Mô tả sản phẩm",
+      "titleImages": "2. Bộ sưu tập hình ảnh sản phẩm",
+      "addImageBtn": "Thêm Link Ảnh",
+      "isPrimaryImage": "Ảnh chính",
+      "deleteImage": "Xóa ảnh",
+      "titleVariants": "3. Biến thể sản phẩm",
+      "addVariantBtn": "Thêm Dòng",
+      "variantColor": "Màu sắc",
+      "variantSize": "Kích cỡ",
+      "variantStock": "Số lượng tồn",
+      "variantSku": "Mã SKU *",
+      "saving": "Đang lưu...",
+      "saveBtn": "LƯU SẢN PHẨM",
+      "tabInfo": "Thông tin cơ bản",
+      "tabVariants": "Giá bán & Phân loại",
+      "tabImages": "Bộ sưu tập ảnh",
+      "summaryTitle": "Tổng quan sản phẩm",
+      "primaryImageSet": "Đã đặt làm hình ảnh chính.",
+      "uploadComputer": "Tải lên tệp hình ảnh từ máy tính",
+      "uploadBtn": "CHỌN VÀ TẢI TỆP ẢNH LÊN",
+      "pasteUrl": "Dán đường dẫn ảnh ngoài (URL)",
+      "addBtn": "THÊM",
+      "galleryTitle": "Hình ảnh sản phẩm trong bộ sưu tập",
+      "noImages": "Chưa có hình ảnh nào được thêm vào. Vui lòng tải file hoặc nhập URL phía trên.",
+      "choosePrimary": "LÀM ẢNH CHÍNH",
+      "deleteBtn": "XÓA ẢNH",
+      "numVariants": "Số biến thể:",
+      "totalImages": "Tổng ảnh lưu trữ:",
+      "primarySize": "Kích thước ảnh chính:",
+      "hasPrimary": "Có ảnh đại diện",
+      "noPrimary": "Chưa đặt",
+      "noCategory": "Chưa chọn ngành",
+      "noName": "Tên sản phẩm trống",
+      "uploadSuccess": "Tải hình ảnh lên máy chủ thành công.",
+      "uploadError": "Lỗi xảy ra trong quá trình tải ảnh.",
+      "urlAdded": "Thêm ảnh từ liên kết ngoài thành công.",
+      "validationFailed": "Vui lòng kiểm tra thông tin nhập liệu",
+      "validationFailedDesc": "Phát hiện trường thông tin trống hoặc không hợp lệ. Hệ thống đã tự động chuyển hướng về Tab chứa lỗi.",
+      "colorWhite": "Trắng (White)",
+      "colorBlack": "Đen (Black)",
+      "colorRed": "Đỏ (Red)",
+      "colorBlue": "Xanh biển (Blue)",
+      "colorGrey": "Xám (Grey)",
+      "colorBeige": "Be (Beige)",
+      "colorGold": "Vàng (Gold)",
+      "colorPink": "Hồng (Pink)",
+      "colorGreen": "Xanh lá (Green)"
+    }
+  }
+}

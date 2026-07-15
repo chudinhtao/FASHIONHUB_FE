@@ -54,3 +54,7 @@ export interface PaginatedResponse<T> {
   data: T[];
   meta: PaginatedMeta;
 }
+
+// ── USER & AUTH CHUYÊN BIỆT ──────────────────────────────────
+export type { User, LoginData } from '@/features/auth/types';
+
