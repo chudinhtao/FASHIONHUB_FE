@@ -1,0 +1,313 @@
+{
+  "auth": {
+    "email": "Email",
+    "emailPlaceholder": "example@email.com",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "backToLogin": "Back to Login",
+    "loading": "Processing...",
+    "brandName": "FASHIONHUB",
+    "brandSub": "Premium Clothing Store",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "help": "Help",
+    "copyright": "All rights reserved.",
+    "loginTitle": "Sign In",
+    "loginSub": "Welcome back to our store.",
+    "rememberMe": "Remember me",
+    "forgotPasswordLink": "Forgot password?",
+    "loginBtn": "Sign In",
+    "noAccount": "Don't have an account?",
+    "registerNow": "Register now",
+    "loginSuccess": "Login successful!",
+    "registerTitle": "Create Account",
+    "registerSub": "Become a member and enjoy exclusive benefits.",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "John Doe",
+    "phone": "Phone Number (Optional)",
+    "phonePlaceholder": "09XXXXXXXX",
+    "address": "Shipping Address (Optional)",
+    "addressPlaceholder": "Street, District, City...",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Re-enter your password",
+    "registerBtn": "Create Account",
+    "hasAccount": "Already have an account?",
+    "loginNow": "Sign in now",
+    "registerSuccess": "Account registered successfully!",
+    "forgotTitle": "Forgot Password",
+    "forgotSub": "Enter your email address to reset your password.",
+    "emailReg": "Registered Email",
+    "forgotBtn": "Send Reset Link",
+    "forgotSuccess": "Request successful!",
+    "forgotDesc": "A password reset token has been generated.",
+    "resetTitle": "Reset Password",
+    "resetSub": "Enter your new password below.",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "Minimum 6 characters",
+    "confirmNewPassword": "Confirm New Password",
+    "confirmNewPasswordPlaceholder": "Re-enter new password",
+    "resetBtn": "Update Password",
+    "resetTokenMissing": "Warning: Missing or invalid reset token. Please resubmit the request.",
+    "resetSuccess": "Password reset successful!",
+    "resetSuccessDesc": "Please login with your new password.",
+    "forbiddenTitle": "Access Denied",
+    "forbiddenSub": "403 - FORBIDDEN",
+    "forbiddenDesc": "You do not have the required permissions to access this page. This area is strictly restricted to Administrator (Admin) accounts.",
+    "backToHome": "Back to Home",
+    "loginOther": "Login with another account",
+    "profileTitle": "Personal Profile Details",
+    "profileSub": "Profile",
+    "collections": "Collections",
+    "about": "About Us",
+    "store": "Store",
+    "id": "User ID",
+    "joinedDate": "Joined Date",
+    "role": "Access Level",
+    "adminRole": "System Administrator (Admin)",
+    "customerRole": "Registered Customer (Customer)",
+    "addressDefault": "Default Shipping Address",
+    "addressEmpty": "No default shipping address updated.",
+    "logoutBtn": "Logout",
+    "logoutSuccess": "Logged out successfully.",
+    "logoutGoodbye": "See you next time!"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "SUMMER COLLECTION 2026",
+      "title": "Release Sophistication & Freedom",
+      "description": "Experience modern minimalist tailoring made from premium natural fibers.",
+      "cta": "EXPLORE NOW"
+    },
+    "categories": {
+      "title": "FEATURED COLLECTIONS",
+      "subtitle": "Popular Categories",
+      "mens": "MEN'S CLOTHING",
+      "polos": "POLOS",
+      "accessories": "ACCESSORIES",
+      "explore": "Details >"
+    },
+    "arrivals": {
+      "title": "NEW ARRIVALS OF THE WEEK",
+      "subtitle": "Curated Products"
+    }
+  },
+  "catalog": {
+    "breadcrumbs": {
+      "home": "Home",
+      "shop": "Shop"
+    },
+    "filter": {
+      "search": "Search",
+      "searchPlaceholder": "Search products...",
+      "categories": "Categories",
+      "noCategories": "No categories",
+      "price": "Price Range",
+      "clearAll": "CLEAR ALL FILTERS"
+    },
+    "price": {
+      "under200": "Under 200,000 ₫",
+      "200to500": "200,000 ₫ - 500,000 ₫",
+      "over500": "Above 500,000 ₫"
+    },
+    "toolbar": {
+      "allProducts": "ALL PRODUCTS",
+      "sortBy": "Sort by:"
+    },
+    "sort": {
+      "newest": "Newest",
+      "priceAsc": "Price Low to High",
+      "priceDesc": "Price High to Low"
+    },
+    "state": {
+      "errorTitle": "Unable to load products list",
+      "retry": "Retry",
+      "emptyTitle": "No matching products found",
+      "emptySubtitle": "Try adjusting your price range or selected categories.",
+      "clearFilters": "Clear Filters"
+    },
+    "pagination": {
+      "showInfo": "Showing {{count}} of {{total}} products"
+    }
+  },
+  "product": {
+    "breadcrumbs": {
+      "home": "Home",
+      "shop": "Shop"
+    },
+    "noDescription": "No description available for this product.",
+    "fields": {
+      "color": "Color",
+      "size": "Size"
+    },
+    "stock": {
+      "available": "Stock: {{count}} items remaining",
+      "outOfStock": "Out of stock for this variant"
+    },
+    "cta": {
+      "addToCart": "ADD TO CART",
+      "outOfStock": "OUT OF STOCK"
+    },
+    "toast": {
+      "invalidVariant": "Invalid product variant selected",
+      "outOfStock": "Product is out of stock",
+      "addSuccess": "Added product to cart successfully!"
+    },
+    "state": {
+      "errorTitle": "Unable to load product information",
+      "retry": "Retry"
+    }
+  },
+  "error": {
+    "404": {
+      "title": "Page not found",
+      "description": "The page you are looking for does not exist or has been moved. Please return to the store homepage.",
+      "cta": "BACK TO HOMEPAGE"
+    }
+  },
+  "admin": {
+    "menu": {
+      "categories": "Categories Admin",
+      "products": "Products Admin"
+    },
+    "breadcrumb": {
+      "admin": "Admin",
+      "categories": "Categories",
+      "products": "Products"
+    },
+    "topbar": {
+      "logout": "Logout"
+    },
+    "categories": {
+      "title": "Category Management",
+      "subtitle": "Create, modify, and manage category tree relationships.",
+      "addBtn": "Add Category",
+      "edit": "Edit",
+      "delete": "Delete",
+      "colName": "Category Name",
+      "colActions": "Actions",
+      "deleteConfirm": "Are you sure you want to delete category \"{{name}}\"? This action will remove the category permanently.",
+      "createSuccess": "Category created successfully",
+      "createError": "Error creating category",
+      "updateSuccess": "Category updated successfully",
+      "updateError": "Error updating category",
+      "deleteSuccess": "Category deleted successfully",
+      "deleteError": "Error deleting category",
+      "modalTitleCreate": "Create New Category",
+      "modalTitleEdit": "Update Category",
+      "modalFieldName": "Category Name *",
+      "modalFieldNamePlaceholder": "e.g., Polos",
+      "modalFieldParent": "Parent Category",
+      "modalParentOptionRoot": "None (Root Category)",
+      "modalCancel": "Cancel",
+      "modalSave": "Save Changes",
+      "nameRequired": "Category name is required",
+      "errorTitle": "Server connection failed",
+      "retry": "Retry",
+      "emptyTitle": "No categories found",
+      "emptyDesc": "Start by adding your first product category."
+    },
+    "products": {
+      "title": "Product Management",
+      "subtitle": "Manage products, image details, and variant stock counts.",
+      "addBtn": "Add Product",
+      "searchPlaceholder": "Search product name...",
+      "filterCategoryAll": "All Categories",
+      "showCount": "Showing {{count}} products",
+      "colImage": "Image",
+      "colName": "Product Name",
+      "colCategory": "Category",
+      "colPrice": "Price",
+      "colStock": "Total Stock",
+      "colActions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteConfirm": "Are you sure you want to delete product \"{{name}}\"? This will permanently delete the product and its variants.",
+      "deleteSuccess": "Product deleted successfully",
+      "deleteError": "Error deleting product",
+      "createSuccess": "Product created successfully",
+      "createError": "Error creating product",
+      "updateSuccess": "Product updated successfully",
+      "updateError": "Error updating product",
+      "errorTitle": "Error loading product data",
+      "retry": "Retry",
+      "emptyTitle": "No products found",
+      "emptyDesc": "Try adjusting your search terms or filters.",
+      "resetFilters": "Reset Filters",
+      "paginationInfo": "Showing rows {{start}} - {{end}} of {{total}}",
+      "createTitle": "Create New Product",
+      "createSubtitle": "Two-column grid layout for intuitive product creations.",
+      "editTitle": "Update Product",
+      "editSubtitle": "Update stock level inventory, general info, and media.",
+      "cancelBtn": "Cancel"
+    },
+    "dashboard": {
+      "title": "Admin Control Dashboard",
+      "subtitle": "Welcome back to the FashionHub administration panel.",
+      "statsProducts": "Active Products",
+      "statsCategories": "System Categories",
+      "statsSales": "Monthly Revenue",
+      "statsOrders": "New Orders",
+      "shortcuts": "Quick Admin Shortcuts",
+      "activity": "Recent Activity Log",
+      "actProductCreated": "New product added to store",
+      "actCategoryCreated": "New fashion category created",
+      "actAdminLogged": "Admin user session authenticated successfully"
+    },
+    "form": {
+      "titleInfo": "1. General Information & Pricing",
+      "name": "Product Name *",
+      "slug": "Slug (URL Path) *",
+      "category": "Product Category *",
+      "selectCategory": "Select category...",
+      "price": "Selling Price (đ) *",
+      "originalPrice": "Original Price (đ)",
+      "description": "Product Description",
+      "titleImages": "2. Product Image Gallery",
+      "addImageBtn": "Add Image Link",
+      "isPrimaryImage": "Primary Image",
+      "deleteImage": "Delete image",
+      "titleVariants": "3. Product Classification Variants",
+      "addVariantBtn": "Add Variant Row",
+      "variantColor": "Color",
+      "variantSize": "Size",
+      "variantStock": "Stock Count",
+      "variantSku": "SKU Code *",
+      "saving": "Saving...",
+      "saveBtn": "SAVE PRODUCT",
+      "tabInfo": "Basic Info",
+      "tabVariants": "Pricing & Variants",
+      "tabImages": "Image Gallery",
+      "summaryTitle": "Product Summary",
+      "primaryImageSet": "Set as primary image successfully.",
+      "uploadComputer": "Upload image file from computer",
+      "uploadBtn": "SELECT AND UPLOAD IMAGE FILE",
+      "pasteUrl": "Paste external image link (URL)",
+      "addBtn": "ADD",
+      "galleryTitle": "Product images in gallery",
+      "noImages": "No images added yet. Please choose file or paste URL above.",
+      "choosePrimary": "MAKE PRIMARY",
+      "deleteBtn": "DELETE IMAGE",
+      "numVariants": "Variants count:",
+      "totalImages": "Total images stored:",
+      "primarySize": "Primary image state:",
+      "hasPrimary": "Has primary image",
+      "noPrimary": "Not set",
+      "noCategory": "Category not set",
+      "noName": "Empty product name",
+      "uploadSuccess": "Image uploaded to server successfully.",
+      "uploadError": "Error occurred while uploading image.",
+      "urlAdded": "External image link added successfully.",
+      "validationFailed": "Please check form inputs",
+      "validationFailedDesc": "Invalid or missing fields detected. The form has automatically switched to the invalid tab.",
+      "colorWhite": "White",
+      "colorBlack": "Black",
+      "colorRed": "Red",
+      "colorBlue": "Blue",
+      "colorGrey": "Grey",
+      "colorBeige": "Beige",
+      "colorGold": "Gold",
+      "colorPink": "Pink",
+      "colorGreen": "Green"
+    }
+  }
+}

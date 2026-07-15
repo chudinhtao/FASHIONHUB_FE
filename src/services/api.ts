@@ -82,6 +82,8 @@ api.interceptors.response.use(
         if (newAccessToken) {
           if (typeof window !== 'undefined') {
             localStorage.setItem('access_token', newAccessToken);
+            const Cookies = require('js-cookie');
+            Cookies.set('access_token', newAccessToken, { expires: 7, secure: true, sameSite: 'strict' });
           }
           api.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
@@ -93,6 +95,8 @@ api.interceptors.response.use(
         // Nếu refresh token cũng hết hạn, tiến hành xoá session
         if (typeof window !== 'undefined') {
           localStorage.removeItem('access_token');
+          const Cookies = require('js-cookie');
+          Cookies.remove('access_token');
           toast.error('Phiên làm việc hết hạn, vui lòng đăng nhập lại.');
         }
         return Promise.reject(refreshError);

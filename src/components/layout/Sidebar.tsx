@@ -11,11 +11,13 @@ import {
 } from '@ant-design/icons';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useLogout } from '@/features/auth/hooks';
 
 const { Sider } = Layout;
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const { logout } = useLogout();
 
   const menuItems = [
     {
@@ -83,10 +85,7 @@ export default function Sidebar() {
                 icon: <LogoutOutlined />,
                 label: 'Đăng xuất',
                 onClick: () => {
-                  if (typeof window !== 'undefined') {
-                    localStorage.removeItem('access_token');
-                    window.location.href = '/login';
-                  }
+                  logout();
                 },
               },
             ]}

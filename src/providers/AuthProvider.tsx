@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useAuthStore } from '@/store/auth';
-import { api } from '@/services/api';
+import { authApi } from '@/features/auth/api';
 
 /**
  * Provider khởi tạo trạng thái xác thực của người dùng khi bắt đầu tải trang (App Hydration).
@@ -21,8 +21,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       try {
-        // Gọi API lấy thông tin cá nhân (Axios client đã được thiết lập gắn Bearer Token)
-        const response: any = await api.get('/auth/me');
+        // Gọi API lấy thông tin cá nhân qua API client được bọc
+        const response: any = await authApi.getMe();
         const user = response.data || response;
         
         if (user) {
