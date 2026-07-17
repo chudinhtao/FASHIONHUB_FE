@@ -3,10 +3,13 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { MinusOutlined, PlusOutlined, CheckOutlined } from '@ant-design/icons';
 import { useProductDetailView } from '../hooks';
 import { Button } from '@/components/ui';
+import RelatedProducts from './RelatedProducts';
 import { getImageUrl } from '@/lib/utils';
+import { ReviewList, ReviewStats, ReviewForm, useProductStats, useCanReview } from '@/features/reviews';
+import { useAuthStore } from '@/store/auth';
 
 export default function ProductDetailView() {
   const {
@@ -29,10 +32,16 @@ export default function ProductDetailView() {
     handleAddToCart,
   } = useProductDetailView();
 
+  const { isAuthenticated } = useAuthStore();
+  const { data: stats } = useProductStats(product?.id || '');
+  const { data: canReviewData, isLoading: canReviewLoading } = useCanReview(product?.id || '');
+
+
+
   if (isLoading) {
     return (
       <div className="bg-bgLight min-h-screen text-ink pb-16">
-        <main className="max-w-7xl w-full mx-auto px-6 py-12 space-y-6">
+        <main className="max-w-7xl w-full mx-auto px-6 pt-4 pb-12 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="aspect-[3/4] bg-zinc-150 animate-pulse border border-borderGray"></div>
             <div className="space-y-6">
@@ -50,7 +59,7 @@ export default function ProductDetailView() {
   if (isError || !product) {
     return (
       <div className="bg-bgLight min-h-screen text-ink pb-16">
-        <main className="max-w-7xl w-full mx-auto px-6 py-24 text-center space-y-4">
+        <main className="max-w-7xl w-full mx-auto px-6 pt-4 pb-24 text-center space-y-4">
           <h4 className="font-playfair text-sm font-bold uppercase tracking-wider text-red-800">
             {t('product.state.errorTitle', 'Không thể tải thông tin sản phẩm')}
           </h4>
@@ -87,7 +96,7 @@ export default function ProductDetailView() {
 
   return (
     <div className="bg-bgLight min-h-screen text-ink pb-16">
-      <main className="max-w-7xl w-full mx-auto px-6 py-12 flex-grow space-y-8">
+      <main className="max-w-7xl w-full mx-auto px-6 pt-4 pb-12 flex-grow space-y-8">
         
         {/* Breadcrumbs */}
         <div className="text-[10px] uppercase tracking-wider text-charcoal font-outfit select-none">
@@ -105,20 +114,9 @@ export default function ProductDetailView() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           
           {/* Left: Image Gallery */}
-          <div className="space-y-4">
-            {/* Main Large Image */}
-            <div className="w-full aspect-[3/4] bg-bg-neutral border border-border-gray overflow-hidden select-none relative">
-              <Image
-                src={getImageUrl(selectedImage, 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=700&q=80')}
-                alt={product.name}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-                priority
-              />
-            </div>
-            {/* Thumbnails Grid */}
-            <div className="grid grid-cols-4 gap-4 select-none">
+          <div className="flex gap-4">
+            {/* Thumbnails (vertical on the left) */}
+            <div className="flex flex-col gap-3 w-16 sm:w-20 shrink-0 select-none">
               {product.images.map((img) => {
                 const isActive = selectedImage === img.url;
                 return (
@@ -127,19 +125,31 @@ export default function ProductDetailView() {
                     key={img.id}
                     onClick={() => setSelectedImage(img.url)}
                     className={`aspect-[3/4] bg-bg-neutral overflow-hidden transition-all duration-300 cursor-pointer p-0 h-auto rounded-none border relative w-full ${
-                      isActive ? 'border-ink' : 'border-border-gray hover:border-ink'
+                      isActive ? 'border-primaryGold border-2 scale-105 shadow-[0_4px_12px_rgba(197,168,128,0.25)] ring-1 ring-primaryGold/20' : 'border-border-gray hover:border-primaryGold'
                     }`}
                   >
                     <Image
                       src={getImageUrl(img.url)}
                       alt="thumbnail"
                       fill
-                      sizes="150px"
+                      sizes="80px"
                       className="object-cover"
-                      />
+                    />
                   </Button>
                 );
               })}
+            </div>
+
+            {/* Main Large Image */}
+            <div className="flex-grow aspect-[3/4] bg-bg-neutral border border-border-gray overflow-hidden select-none relative">
+              <Image
+                src={getImageUrl(selectedImage, 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=700&q=80')}
+                alt={product.name}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+                priority
+              />
             </div>
           </div>
 
@@ -171,10 +181,7 @@ export default function ProductDetailView() {
               )}
             </div>
 
-            {/* Short Description */}
-            <p className="text-xs text-charcoal leading-relaxed max-w-md font-light">
-              {product.description || t('product.noDescription', 'Sản phẩm không có mô tả chi tiết.')}
-            </p>
+
 
             {/* Dynamic Form Fields */}
             <div className="space-y-6 pt-6 border-t border-borderGray">
@@ -203,15 +210,19 @@ export default function ProductDetailView() {
                           }}
                           className={`flex items-center gap-2.5 px-5 py-2.5 text-xs font-bold uppercase tracking-widest font-outfit transition-all duration-300 rounded-full h-auto cursor-pointer border ${
                             isActive
-                              ? 'bg-ink text-white border-ink scale-105 shadow-[0_4px_12px_rgba(0,0,0,0.15)] ring-2 ring-gold/20'
-                              : 'bg-white text-charcoal border-border-light hover:border-ink hover:text-ink hover:scale-102'
+                              ? 'bg-primaryGold/10 text-primaryGold border-primaryGold scale-105 shadow-[0_4px_12px_rgba(197,168,128,0.15)] ring-2 ring-primaryGold/20 font-bold'
+                              : 'bg-white text-charcoal border-border-light hover:border-primaryGold hover:text-primaryGold hover:scale-102'
                           }`}
                         >
-                          {hex && (
+                          {hex ? (
                             <span
-                              className="w-3.5 h-3.5 rounded-full border border-black/15 shrink-0 block"
+                              className="w-3.5 h-3.5 rounded-full border border-black/15 shrink-0 flex items-center justify-center"
                               style={{ backgroundColor: hex }}
-                            />
+                            >
+                              {isActive && <CheckOutlined style={{ fontSize: '8px', color: hex === '#FFFFFF' ? '#000000' : '#ffffff' }} />}
+                            </span>
+                          ) : (
+                            isActive && <CheckOutlined className="text-[9px] text-primaryGold" />
                           )}
                           <span>{color}</span>
                         </Button>
@@ -242,13 +253,16 @@ export default function ProductDetailView() {
                             setSelectedSize(size);
                             handleQtyChange(1 - quantity); // reset quantity selection safely
                           }}
-                          className={`w-12 h-12 flex items-center justify-center text-xs font-bold font-outfit transition-all duration-300 rounded-lg cursor-pointer border ${
+                          className={`w-12 h-12 flex flex-col items-center justify-center text-xs font-bold font-outfit transition-all duration-300 rounded-lg cursor-pointer border relative ${
                             isActive
-                              ? 'bg-ink text-white border-ink scale-110 shadow-[0_4px_12px_rgba(0,0,0,0.15)] font-black ring-2 ring-gold/20'
-                              : 'bg-white text-charcoal border-border-light hover:border-ink hover:text-ink hover:scale-105'
+                              ? 'bg-primaryGold/10 text-primaryGold border-primaryGold scale-110 shadow-[0_4px_12px_rgba(197,168,128,0.15)] font-black ring-2 ring-primaryGold/20'
+                              : 'bg-white text-charcoal border-border-light hover:border-primaryGold hover:text-primaryGold hover:scale-105'
                           }`}
                         >
-                          {size}
+                          <span>{size}</span>
+                          {isActive && (
+                            <CheckOutlined className="absolute bottom-1 right-1 text-[8px] text-primaryGold" />
+                          )}
                         </Button>
                       );
                     })}
@@ -311,6 +325,69 @@ export default function ProductDetailView() {
 
           </div>
 
+        </div>
+
+        {/* Product Detailed Description Section */}
+        <div className="border-t border-borderGray pt-12 mt-4 space-y-4">
+          <h2 className="font-playfair text-sm font-bold uppercase tracking-widest text-ink">
+            {t('product.descriptionTitle', 'Mô tả chi tiết sản phẩm')}
+          </h2>
+          <p className="text-xs text-charcoal leading-relaxed max-w-4xl font-light">
+            {product.description || t('product.noDescription', 'Sản phẩm không có mô tả chi tiết.')}
+          </p>
+        </div>
+
+        {/* RELATED PRODUCTS SECTION */}
+        <RelatedProducts productId={product.id} categorySlug={product.category.slug} />
+
+        {/* REVIEWS SECTION */}
+        <div className="border-t border-borderGray pt-16 mt-16 space-y-10">
+          <h2 className="font-serif text-2xl uppercase tracking-wider text-ink mb-6">
+            {t('product.reviews.sectionTitle', 'Đánh giá sản phẩm')}
+          </h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[1.7fr_1fr] gap-10 items-start">
+            {/* Left side: Stats & list */}
+            <div className="space-y-8">
+              {stats && <ReviewStats stats={stats} />}
+              <ReviewList productId={product.id} />
+            </div>
+
+            {/* Right side: Write review form / Warning placeholders */}
+            <div className="sticky top-24">
+              {isAuthenticated ? (
+                canReviewLoading ? (
+                  <div className="p-6 border border-border-light bg-[#FCFCFB] text-center">
+                    <span className="text-xs text-charcoal">{t('reviews.loading', 'Đang kiểm tra điều kiện...')}</span>
+                  </div>
+                ) : canReviewData?.canReview ? (
+                  <ReviewForm productId={product.id} />
+                ) : (
+                  <div className="border border-border-light p-8 text-center bg-[#FCFCFB] rounded-none">
+                    <p className="text-xs font-light text-charcoal leading-relaxed">
+                      {canReviewData?.reason === 'NOT_PURCHASED'
+                        ? t('reviews.permission.notPurchased', 'Bạn cần mua sản phẩm này và nhận hàng thành công để viết đánh giá.')
+                        : canReviewData?.reason === 'ALREADY_REVIEWED'
+                        ? t('reviews.permission.alreadyReviewed', 'Cảm ơn bạn! Bạn đã gửi đánh giá cho sản phẩm này rồi.')
+                        : t('reviews.permission.notAllowed', 'Bạn chưa đủ điều kiện để đánh giá sản phẩm này.')}
+                    </p>
+                  </div>
+                )
+              ) : (
+                <div className="border border-border-light p-8 text-center bg-[#FCFCFB] rounded-none flex flex-col items-center">
+                  <p className="text-xs font-light text-charcoal leading-relaxed mb-4">
+                    {t('reviews.permission.guest', 'Đăng nhập bằng tài khoản thành viên để đánh giá trải nghiệm sản phẩm này.')}
+                  </p>
+                  <Link 
+                    href="/login" 
+                    className="border border-ink text-ink hover:bg-ink hover:text-white px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest transition-all duration-300 inline-block text-center w-full"
+                  >
+                    {t('reviews.permission.loginBtn', 'Đăng nhập ngay')}
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </main>
     </div>

@@ -4,6 +4,7 @@
   --color-primary-gold: #C5A880;
   --color-primaryGold: #C5A880;
   --color-primary-black: #000000;
+  --color-ink: #1E1E1E;
   --color-bg-light: #F9F9F9;
   --color-bgLight: #F9F9F9;
   --color-border-gray: #E5E7EB;
@@ -94,4 +95,29 @@ h1, h2, h3, h4, h5, h6 {
 .ant-input-number-focused {
   border-color: var(--color-primary-gold) !important;
   box-shadow: 0 0 0 2px rgba(197, 168, 128, 0.1) !important;
+}
+
+/* Custom Elegant Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-neutral, #F5F5F3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-gold, #C5A880);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a3875d;
+}
+
+/* Firefox support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary-gold, #C5A880) var(--color-bg-neutral, #F5F5F3);
 }

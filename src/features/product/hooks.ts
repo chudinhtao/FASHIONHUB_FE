@@ -24,6 +24,9 @@ export const useProducts = (params?: {
   minPrice?: number;
   maxPrice?: number;
   sortBy?: string;
+  onlySale?: boolean;
+  color?: string;
+  size?: string;
 }) => {
   return useQuery({
     queryKey: ['products', params],
@@ -83,8 +86,12 @@ export const useProductList = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [sortBy, setSortBy] = useState<string>('newest');
   const [categorySlug, setCategorySlug] = useState<string>('');
-  const [priceRange, setPriceRange] = useState<string>(''); // '', 'under200', '200to500', 'over500'
+  const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(2000000);
   const [search, setSearch] = useState<string>('');
+  const [onlySale, setOnlySale] = useState<boolean>(false);
+  const [color, setColor] = useState<string>('');
+  const [size, setSize] = useState<string>('');
 
   // Sync with searchParams if page mounted with queries
   useEffect(() => {
@@ -100,17 +107,7 @@ export const useProductList = () => {
     }
   }, [searchParams]);
 
-  // Map price range selection to minPrice/maxPrice params
-  let minPrice: number | undefined;
-  let maxPrice: number | undefined;
-  if (priceRange === 'under200') {
-    maxPrice = 200000;
-  } else if (priceRange === '200to500') {
-    minPrice = 200000;
-    maxPrice = 500000;
-  } else if (priceRange === 'over500') {
-    minPrice = 500000;
-  }
+
 
   // Fetch data
   const { data: categories, isLoading: isCategoriesLoading } = useCategories();
@@ -121,12 +118,15 @@ export const useProductList = () => {
     refetch,
   } = useProducts({
     page: currentPage,
-    limit: 8,
+    limit: 12,
     search: search || undefined,
     categorySlug: categorySlug || undefined,
-    minPrice,
-    maxPrice,
+    minPrice: minPrice > 0 ? minPrice : undefined,
+    maxPrice: maxPrice < 2000000 ? maxPrice : undefined,
     sortBy,
+    onlySale: onlySale || undefined,
+    color: color || undefined,
+    size: size || undefined,
   });
 
   const products = productsResponse?.data || [];
@@ -141,20 +141,17 @@ export const useProductList = () => {
     setCurrentPage(1);
   };
 
-  const handlePriceRangeSelect = (range: string) => {
-    if (priceRange === range) {
-      setPriceRange(''); // Toggle off
-    } else {
-      setPriceRange(range);
-    }
-    setCurrentPage(1);
-  };
+
 
   const clearAllFilters = () => {
     setCategorySlug('');
-    setPriceRange('');
+    setMinPrice(0);
+    setMaxPrice(2000000);
     setSearch('');
     setSortBy('newest');
+    setOnlySale(false);
+    setColor('');
+    setSize('');
     setCurrentPage(1);
     router.push('/products');
   };
@@ -167,10 +164,18 @@ export const useProductList = () => {
     setSortBy,
     categorySlug,
     setCategorySlug,
-    priceRange,
-    setPriceRange,
+    minPrice,
+    setMinPrice,
+    maxPrice,
+    setMaxPrice,
     search,
     setSearch,
+    onlySale,
+    setOnlySale,
+    color,
+    setColor,
+    size,
+    setSize,
     categories,
     isCategoriesLoading,
     products,
@@ -179,7 +184,6 @@ export const useProductList = () => {
     refetch,
     meta,
     handleCategorySelect,
-    handlePriceRangeSelect,
     clearAllFilters,
   };
 };
@@ -294,6 +298,19 @@ export const useProductDetailView = () => {
   };
 };
 
+export const useRelatedProducts = (productId?: string, categorySlug?: string) => {
+  const { data: relatedResponse } = useProducts({
+    categorySlug,
+    limit: 5,
+  });
+
+  const relatedProducts = (relatedResponse?.data || [])
+    .filter((item) => item.id !== productId)
+    .slice(0, 4);
+
+  return { relatedProducts };
+};
+
 export const useProductAdminList = () => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -379,7 +396,7 @@ export const useProductForm = (
 ) => {
   const { t } = useTranslation();
   const { data: categories } = useCategories();
-  
+
   const [uploadingIdx, setUploadingIdx] = useState<number | null>(null);
   const [newImageUrl, setNewImageUrl] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -459,19 +476,19 @@ export const useProductForm = (
     const name = watch('name');
     const color = watch(`variants.${index}.color`);
     const size = watch(`variants.${index}.size`);
-    
+
     const prefix = name
       ? name
-          .split(' ')
-          .map((w) => w[0])
-          .join('')
-          .toUpperCase()
-          .replace(/[^A-Z0-9]/g, '')
-          .slice(0, 4)
+        .split(' ')
+        .map((w) => w[0])
+        .join('')
+        .toUpperCase()
+        .replace(/[^A-Z0-9]/g, '')
+        .slice(0, 4)
       : 'PROD';
     const col = color ? color.slice(0, 3).toUpperCase().replace(/[^A-Z0-9]/g, '') : 'GEN';
     const sz = size ? size.toUpperCase().replace(/[^A-Z0-9]/g, '') : 'ALL';
-    
+
     setValue(`variants.${index}.sku`, `${prefix}-${col}-${sz}`);
   };
 

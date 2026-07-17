@@ -17,7 +17,7 @@ export default function AdminProfilePage() {
           Thông tin chi tiết tài khoản Admin cấp cao của hệ thống.
         </p>
       </div>
-      <div className="max-w-5xl w-full">
+      <div className="w-full flex justify-center">
         <ProfileView />
       </div>
     </div>

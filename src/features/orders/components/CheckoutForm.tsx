@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/Input';
 import { CheckoutFormValues } from './CheckoutForm.schema';
 
 export const CheckoutForm: React.FC = () => {
+
   const { t } = useCheckoutView();
   const {
     control,
@@ -26,7 +27,7 @@ export const CheckoutForm: React.FC = () => {
         <Form.Item
           label={<span className="text-xs uppercase tracking-wider text-charcoal font-bold">{t('orders.checkout.fullName', 'Họ và tên người nhận *')}</span>}
           validateStatus={errors.recipientName ? 'error' : ''}
-          help={errors.recipientName && t(errors.recipientName.message || '', 'Họ tên phải từ 2 ký tự trở lên.')}
+          help={errors.recipientName && t(errors.recipientName.message || '')}
           className="!mb-0"
         >
           <Controller
@@ -46,7 +47,7 @@ export const CheckoutForm: React.FC = () => {
         <Form.Item
           label={<span className="text-xs uppercase tracking-wider text-charcoal font-bold">{t('orders.checkout.phone', 'Số điện thoại *')}</span>}
           validateStatus={errors.phone ? 'error' : ''}
-          help={errors.phone && t(errors.phone.message || '', 'Số điện thoại 10 số, bắt đầu bằng 03, 05, 07, 08, hoặc 09.')}
+          help={errors.phone && t(errors.phone.message || '')}
           className="!mb-0"
         >
           <Controller
@@ -66,7 +67,7 @@ export const CheckoutForm: React.FC = () => {
         <Form.Item
           label={<span className="text-xs uppercase tracking-wider text-charcoal font-bold">{t('orders.checkout.address', 'Địa chỉ nhận hàng *')}</span>}
           validateStatus={errors.shippingAddress ? 'error' : ''}
-          help={errors.shippingAddress && t(errors.shippingAddress.message || '', 'Địa chỉ chi tiết tối thiểu 10 ký tự.')}
+          help={errors.shippingAddress && t(errors.shippingAddress.message || '')}
           className="!mb-0"
         >
           <Controller

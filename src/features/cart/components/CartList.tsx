@@ -68,24 +68,24 @@ export const CartList: React.FC = () => {
           return (
             <div
               key={item.id}
-              className={`cart-item-row flex justify-between items-center py-6 border-b border-border-light transition-all duration-400 group ${
+              className={`cart-item-row flex flex-col sm:flex-row sm:justify-between sm:items-center py-6 border-b border-border-light transition-all duration-400 group gap-4 ${
                 isOutOfStock ? 'border-l-2 border-l-warning pl-3' : ''
               }`}
             >
               {/* Product details */}
-              <div className="item-product-info flex gap-5 items-center flex-1">
-                <div className="product-img-holder w-[90px] aspect-[3/4] overflow-hidden bg-surface-light shrink-0">
+              <div className="item-product-info flex gap-4 items-center flex-1 min-w-0">
+                <div className="product-img-holder w-[80px] sm:w-[90px] aspect-[3/4] overflow-hidden bg-surface-light shrink-0">
                   <img
                     src={primaryImage?.url || '/images/placeholder.jpg'}
                     alt={product.name}
                     className="w-full h-full object-cover transition-all duration-800 group-hover:scale-103"
                   />
                 </div>
-                <div className="item-description flex flex-col gap-1">
+                <div className="item-description flex flex-col gap-1 min-w-0">
                   <span className="item-brand text-[9px] font-bold tracking-widest uppercase text-gold">
-                    FASHIONHUB SELECTION
+                    {t('cart.brandSelection', 'FASHIONHUB SELECTION')}
                   </span>
-                  <Link href={`/products/${product.slug}`} className="item-name font-serif text-[17px] font-normal leading-snug text-ink transition-colors duration-200 hover:text-gold">
+                  <Link href={`/products/${product.slug}`} className="item-name font-serif text-[15px] sm:text-[17px] font-normal leading-snug text-ink transition-colors duration-200 hover:text-gold line-clamp-2">
                     {product.name}
                     {isOutOfStock && (
                       <span className="text-warning text-xs font-medium ml-2 uppercase">
@@ -93,14 +93,14 @@ export const CartList: React.FC = () => {
                       </span>
                     )}
                   </Link>
-                  <span className="item-attributes text-[12.5px] font-light text-charcoal">
+                  <span className="item-attributes text-[11.5px] font-light text-charcoal">
                     {t('cart.size', 'Kích thước')}: {item.variant.size || 'N/A'} | {t('cart.color', 'Màu sắc')}: {item.variant.color || 'N/A'}
                   </span>
                 </div>
               </div>
 
               {/* Quantity controls and price */}
-              <div className="item-controls-info flex items-center justify-end gap-10 w-[280px] shrink-0">
+              <div className="item-controls-info flex items-center justify-between sm:justify-end gap-6 sm:gap-10 sm:shrink-0">
                 <div className="qty-selector flex items-center border border-border-light h-8">
                   <Button
                     type="text"
@@ -120,7 +120,7 @@ export const CartList: React.FC = () => {
                   />
                 </div>
 
-                <div className="price-remove-group flex items-center gap-5 w-[130px] justify-end">
+                <div className="price-remove-group flex items-center gap-4">
                   <div className="price-group text-right">
                     {product.originalPrice && Number(product.originalPrice) > Number(product.price) && (
                       <span className="item-original-price font-mono text-[11px] line-through text-charcoal block mb-0.5">

@@ -9,7 +9,7 @@ export const metadata = {
 export default function ProfilePage() {
   return (
     <div className="bg-bgLight min-h-screen text-ink pb-16">
-      <main className="max-w-7xl w-full mx-auto px-6 py-12 flex justify-center">
+      <main className="max-w-7xl w-full mx-auto px-6 pt-4 pb-12 flex justify-center">
         <ProfileView />
       </main>
     </div>

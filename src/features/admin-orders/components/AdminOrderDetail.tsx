@@ -44,19 +44,20 @@ export const AdminOrderDetail: React.FC<AdminOrderDetailProps> = ({ orderId }) =
   }
 
   return (
-    <div className="font-sans w-full">
-      {/* PageHeader with breadcrumbs */}
-      <PageHeader
-        title={t('orders.admin.detailTitle', 'Chi Tiết Đơn Hàng (Admin)')}
-        description={`${t('orders.detail.orderNumber', 'Mã đơn hàng')}: ${order.orderNumber}`}
-        breadcrumbs={[
-          { title: t('admin.breadcrumb.admin', 'Quản trị'), href: '/admin' },
-          { title: t('admin.breadcrumb.orders', 'Đơn hàng'), href: '/admin/orders' },
-          { title: order.orderNumber }
-        ]}
-      />
+    <div className="space-y-6">
+      {/* Page Header */}
+      <div className="flex items-center justify-between pb-4 border-b border-borderGray select-none">
+        <div>
+          <h1 className="text-xl font-bold font-playfair text-ink uppercase tracking-wider">
+            {t('orders.admin.detailTitle', 'Chi Tiết Đơn Hàng (Admin)')}
+          </h1>
+          <p className="text-xs text-charcoal mt-1">
+            {t('orders.detail.orderNumber', 'Mã đơn hàng')}: {order.orderNumber}
+          </p>
+        </div>
+      </div>
 
-      <div className="px-6 grid grid-cols-[1.35fr_1fr] gap-0 items-start max-md:grid-cols-1 max-md:gap-10">
+      <div className="grid grid-cols-[1.35fr_1fr] gap-0 items-start max-md:grid-cols-1 max-md:gap-10">
         
         {/* Column 1: Order Details Info (Left Side) */}
         <div className="w-full pr-14 border-r border-border-light max-md:pr-0 max-md:border-r-0">
@@ -120,7 +121,7 @@ export const AdminOrderDetail: React.FC<AdminOrderDetailProps> = ({ orderId }) =
                         <div>
                           <h4 className="font-serif text-sm text-ink leading-tight">{product.name}</h4>
                           <div className="text-[11px] text-charcoal mt-0.5">
-                            Size: {item.variant.size || 'N/A'} | Qty: {item.quantity}
+                            {t('cart.size', 'Kích thước')}: {item.variant.size || 'N/A'} | {t('orders.detail.qty', 'Số lượng')}: {item.quantity}
                           </div>
                         </div>
                       </div>

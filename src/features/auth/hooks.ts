@@ -56,7 +56,7 @@ export function useLogin() {
         if (payload.user.role === 'ADMIN') {
           router.push('/admin');
         } else {
-          router.push('/profile');
+          router.push('/products');
         }
       }
     } catch (error: any) {
@@ -301,7 +301,7 @@ export function useResetPasswordForm() {
   const token = searchParams ? (searchParams.get('token') || '') : '';
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
-  
+
   const { resetPassword, loading } = useResetPassword();
   const {
     control,
@@ -331,9 +331,6 @@ export function useResetPasswordForm() {
   };
 }
 
-/**
- * Hook quản lý logic hiển thị Hồ sơ cá nhân
- */
 export function useProfileView() {
   const router = useRouter();
   const { user, isAuthenticated } = useAuthStore();
@@ -342,16 +339,67 @@ export function useProfileView() {
   const { logout, loading: loggingOut } = useLogout();
   const [mounted, setMounted] = useState(false);
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [editName, setEditName] = useState('');
+  const [editPhone, setEditPhone] = useState('');
+  const [editAddress, setEditAddress] = useState('');
+  const [saving, setSaving] = useState(false);
+  const setAuth = useAuthStore((state) => state.setAuth);
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      setEditName(user.name || '');
+      setEditPhone(user.phone || '');
+      setEditAddress(user.address || '');
+    }
+  }, [user]);
+
+  const handleCancel = () => {
+    if (user) {
+      setEditName(user.name || '');
+      setEditPhone(user.phone || '');
+      setEditAddress(user.address || '');
+    }
+    setIsEditing(false);
+  };
+
+  const handleSave = async () => {
+    if (!editName.trim()) {
+      toast.error(currentLanguage === 'vi' ? 'Tên không được để trống.' : 'Name cannot be empty.');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const response = await authApi.updateMe({
+        name: editName,
+        phone: editPhone,
+        address: editAddress,
+      });
+
+      if (response && response.data) {
+        setAuth(response.data);
+        toast.success(currentLanguage === 'vi' ? 'Cập nhật hồ sơ thành công!' : 'Profile updated successfully!');
+        setIsEditing(false);
+      }
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message || (currentLanguage === 'vi' ? 'Cập nhật thất bại.' : 'Update failed.'));
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const formattedDate = user?.createdAt
     ? new Date(user.createdAt).toLocaleDateString(currentLanguage === 'vi' ? 'vi-VN' : 'en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      })
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
     : t('auth.addressEmpty');
 
   return {
@@ -365,5 +413,16 @@ export function useProfileView() {
     mounted,
     formattedDate,
     logout,
+    isEditing,
+    setIsEditing,
+    editName,
+    setEditName,
+    editPhone,
+    setEditPhone,
+    editAddress,
+    setEditAddress,
+    saving,
+    handleCancel,
+    handleSave,
   };
 }

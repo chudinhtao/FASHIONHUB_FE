@@ -10,6 +10,9 @@ export const productApi = {
     minPrice?: number;
     maxPrice?: number;
     sortBy?: string;
+    onlySale?: boolean;
+    color?: string;
+    size?: string;
   }): Promise<PaginatedResponse<ProductShort>> {
     return api.get('/products', { params });
   },

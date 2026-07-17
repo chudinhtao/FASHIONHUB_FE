@@ -6,8 +6,9 @@ import Image from 'next/image';
 import { useProductList } from '../hooks';
 import { Category } from '@/types';
 import { Input, Button } from '@/components/ui';
-import { Checkbox, Pagination } from 'antd';
+import { Checkbox, Pagination, Slider } from 'antd';
 import { getImageUrl } from '@/lib/utils';
+import { DownOutlined, CheckOutlined, PlusOutlined, MinusOutlined, RightOutlined, TagOutlined } from '@ant-design/icons';
 
 export default function ProductList() {
   const {
@@ -17,9 +18,18 @@ export default function ProductList() {
     sortBy,
     setSortBy,
     categorySlug,
-    priceRange,
+    minPrice,
+    setMinPrice,
+    maxPrice,
+    setMaxPrice,
     search,
     setSearch,
+    onlySale,
+    setOnlySale,
+    color,
+    setColor,
+    size,
+    setSize,
     categories,
     isCategoriesLoading,
     products,
@@ -28,9 +38,48 @@ export default function ProductList() {
     refetch,
     meta,
     handleCategorySelect,
-    handlePriceRangeSelect,
     clearAllFilters,
   } = useProductList();
+
+  const [openSearch, setOpenSearch] = React.useState(false);
+  const [openCategories, setOpenCategories] = React.useState(false);
+  const [openPrice, setOpenPrice] = React.useState(false);
+  const [openColor, setOpenColor] = React.useState(false);
+  const [openSize, setOpenSize] = React.useState(false);
+  const [showAllCategories, setShowAllCategories] = React.useState(false);
+
+  const visibleCategories = showAllCategories
+    ? categories || []
+    : (categories || []).slice(0, 3);
+
+  const availableColors: { label: string; value: string }[] = [
+    { label: t('color.white', 'Trắng'), value: 'White' },
+    { label: t('color.black', 'Đen'), value: 'Black' },
+    { label: t('color.navy', 'Xanh Navy'), value: 'Navy' },
+    { label: t('color.red', 'Đỏ'), value: 'Red' },
+    { label: t('color.beige', 'Kem'), value: 'Beige' },
+    { label: t('color.grey', 'Xám'), value: 'Grey' },
+    { label: t('color.green', 'Xanh Rêu'), value: 'Green' },
+    { label: t('color.brown', 'Nâu'), value: 'Brown' },
+    { label: t('color.pink', 'Hồng'), value: 'Pink' },
+    { label: t('color.gold', 'Vàng'), value: 'Gold' },
+  ];
+  const availableSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '29', '30', '31', '32', '33', 'Free Size'];
+
+  const getColorHex = (value: string) => {
+    const v = value.toLowerCase();
+    if (v === 'black') return '#1A1A1A';
+    if (v === 'white') return '#FFFFFF';
+    if (v === 'red') return '#9B2335';
+    if (v === 'navy') return '#1E3E62';
+    if (v === 'grey' || v === 'gray') return '#808080';
+    if (v === 'beige') return '#F5F0E8';
+    if (v === 'green') return '#4A5D4E';
+    if (v === 'brown') return '#8B5A2B';
+    if (v === 'pink') return '#FFC0CB';
+    if (v === 'gold') return '#C5A880';
+    return '#E4E4E7';
+  };
 
   // Recursive category renderer for sidebar
   const renderCategoryNode = (cat: Category) => {
@@ -45,11 +94,14 @@ export default function ProductList() {
             isActive ? 'text-primaryGold font-semibold' : 'text-charcoal hover:text-ink'
           }`}
         >
-          <span>{cat.name.toUpperCase()}</span>
-          {isActive && <span className="text-[8px]">✦</span>}
+          <span className="flex items-center gap-2">
+            <RightOutlined className={`text-[7px] transition-transform ${isActive ? 'text-primaryGold rotate-90' : 'opacity-40'}`} />
+            {cat.name.toUpperCase()}
+          </span>
+          {isActive && <CheckOutlined className="text-[9px] text-primaryGold font-bold" />}
         </div>
         {hasChildren && (
-          <div className="pl-3 border-l border-borderGray ml-1 space-y-1">
+          <div className="pl-3.5 border-l border-borderGray ml-1.5 space-y-1">
             {cat.children!.map((child) => renderCategoryNode(child))}
           </div>
         )}
@@ -59,7 +111,7 @@ export default function ProductList() {
 
   return (
     <div className="bg-bgLight min-h-screen text-ink pb-16">
-      <main className="max-w-7xl w-full mx-auto px-6 py-12 flex flex-col md:flex-row gap-8">
+      <main className="max-w-7xl w-full mx-auto px-6 pt-4 pb-12 flex flex-col md:flex-row gap-8">
         
         {/* Sidebar Filter Column */}
         <aside className="w-full md:w-[250px] shrink-0 space-y-8 select-none">
@@ -73,37 +125,88 @@ export default function ProductList() {
           </div>
 
           {/* Search bar inside sidebar */}
-          <div className="space-y-2 pt-4 border-t border-borderGray">
-            <h3 className="font-outfit text-xs font-bold uppercase tracking-widest text-ink">
-              {t('catalog.filter.search', 'Tìm Kiếm')}
-            </h3>
-            <Input
-              placeholder={t('catalog.filter.searchPlaceholder', 'Tìm sản phẩm...')}
-              value={search}
+          <div className="space-y-3 pt-4 border-t border-borderGray">
+            <div
+              onClick={() => setOpenSearch(!openSearch)}
+              className="flex items-center justify-between cursor-pointer select-none group"
+            >
+              <h3 className="font-outfit text-xs font-bold uppercase tracking-widest text-ink group-hover:text-primaryGold transition-colors">
+                {t('catalog.filter.search', 'Tìm Kiếm')}
+              </h3>
+              <DownOutlined className={`text-[9px] text-charcoal transition-transform duration-300 ${openSearch ? 'rotate-180' : ''}`} />
+            </div>
+            {openSearch && (
+              <Input
+                placeholder={t('catalog.filter.searchPlaceholder', 'Tìm sản phẩm...')}
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setCurrentPage(1);
+                }}
+                allowClear
+                className="w-full rounded-none font-outfit text-xs mt-2"
+              />
+            )}
+          </div>
+
+          {/* Sale Filter Checkbox */}
+          <div className="space-y-3 pt-4 border-t border-borderGray select-none">
+            <Checkbox
+              checked={onlySale}
               onChange={(e) => {
-                setSearch(e.target.value);
+                setOnlySale(e.target.checked);
                 setCurrentPage(1);
               }}
-              allowClear
-              className="w-full rounded-none font-outfit text-xs"
-            />
+              className="text-xs font-outfit font-bold uppercase tracking-wider text-red-800 hover:text-red-900 select-none cursor-pointer flex items-center"
+            >
+              <span className="inline-flex items-center gap-1.5">
+                <TagOutlined className="text-[11px]" />
+                {t('catalog.filter.onlySale', 'SẢN PHẨM KHUYẾN MÃI')}
+              </span>
+            </Checkbox>
           </div>
 
           {/* Categories Hierarchical List */}
-          <div className="space-y-4 pt-6 border-t border-borderGray">
-            <h3 className="font-outfit text-xs font-bold uppercase tracking-widest text-ink">
-              {t('catalog.filter.categories', 'Danh Mục')}
-            </h3>
-            {isCategoriesLoading ? (
-              <div className="space-y-2">
-                <div className="h-4 w-28 bg-zinc-100 animate-pulse"></div>
-                <div className="h-4 w-32 bg-zinc-100 animate-pulse pl-4"></div>
-                <div className="h-4 w-24 bg-zinc-100 animate-pulse"></div>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {categories && categories.length > 0 ? (
-                  categories.map((cat) => renderCategoryNode(cat))
+          <div className="space-y-3 pt-6 border-t border-borderGray">
+            <div
+              onClick={() => setOpenCategories(!openCategories)}
+              className="flex items-center justify-between cursor-pointer select-none group"
+            >
+              <h3 className="font-outfit text-xs font-bold uppercase tracking-widest text-ink group-hover:text-primaryGold transition-colors">
+                {t('catalog.filter.categories', 'Danh Mục')}
+              </h3>
+              <DownOutlined className={`text-[9px] text-charcoal transition-transform duration-300 ${openCategories ? 'rotate-180' : ''}`} />
+            </div>
+            {openCategories && (
+              <div className="space-y-2 mt-2">
+                {isCategoriesLoading ? (
+                  <div className="space-y-2">
+                    <div className="h-4 w-28 bg-zinc-100 animate-pulse"></div>
+                    <div className="h-4 w-32 bg-zinc-100 animate-pulse pl-4"></div>
+                    <div className="h-4 w-24 bg-zinc-100 animate-pulse"></div>
+                  </div>
+                ) : categories && categories.length > 0 ? (
+                  <>
+                    <div className="space-y-2">
+                      {visibleCategories.map((cat) => renderCategoryNode(cat))}
+                    </div>
+                    {categories.length > 3 && (
+                      <button
+                        onClick={() => setShowAllCategories(!showAllCategories)}
+                        className="flex items-center gap-1.5 text-[9px] font-outfit font-bold uppercase tracking-widest text-primaryGold hover:text-ink transition-colors pt-2.5 cursor-pointer border-none bg-transparent"
+                      >
+                        {showAllCategories ? (
+                          <>
+                            {t('catalog.categories.showLess', 'Thu gọn')} <MinusOutlined className="text-[8px]" />
+                          </>
+                        ) : (
+                          <>
+                            {t('catalog.categories.showMore', 'Xem thêm')} <PlusOutlined className="text-[8px]" />
+                          </>
+                        )}
+                      </button>
+                    )}
+                  </>
                 ) : (
                   <p className="text-xs text-charcoal italic">{t('catalog.filter.noCategories', 'Không có danh mục')}</p>
                 )}
@@ -111,38 +214,126 @@ export default function ProductList() {
             )}
           </div>
 
-          {/* Price Range Checkboxes */}
-          <div className="space-y-4 pt-6 border-t border-borderGray">
-            <h3 className="font-outfit text-xs font-bold uppercase tracking-widest text-ink">
-              {t('catalog.filter.price', 'Khoảng Giá')}
-            </h3>
-            <div className="space-y-2.5 flex flex-col">
-              <Checkbox
-                checked={priceRange === 'under200'}
-                onChange={() => handlePriceRangeSelect('under200')}
-                className="text-xs font-outfit text-charcoal hover:text-ink select-none cursor-pointer"
-              >
-                {t('catalog.price.under200', 'Dưới 200.000 ₫')}
-              </Checkbox>
-              <Checkbox
-                checked={priceRange === '200to500'}
-                onChange={() => handlePriceRangeSelect('200to500')}
-                className="text-xs font-outfit text-charcoal hover:text-ink select-none cursor-pointer"
-              >
-                {t('catalog.price.200to500', '200.000 ₫ - 500.000 ₫')}
-              </Checkbox>
-              <Checkbox
-                checked={priceRange === 'over500'}
-                onChange={() => handlePriceRangeSelect('over500')}
-                className="text-xs font-outfit text-charcoal hover:text-ink select-none cursor-pointer"
-              >
-                {t('catalog.price.over500', 'Trên 500.000 ₫')}
-              </Checkbox>
+          {/* Price Range Slider */}
+          <div className="space-y-3 pt-6 border-t border-borderGray">
+            <div
+              onClick={() => setOpenPrice(!openPrice)}
+              className="flex items-center justify-between cursor-pointer select-none group"
+            >
+              <h3 className="font-outfit text-xs font-bold uppercase tracking-widest text-ink group-hover:text-primaryGold transition-colors">
+                {t('catalog.filter.price', 'Khoảng Giá')}
+              </h3>
+              <DownOutlined className={`text-[9px] text-charcoal transition-transform duration-300 ${openPrice ? 'rotate-180' : ''}`} />
             </div>
+            {openPrice && (
+              <div className="space-y-4 mt-4 px-2">
+                <Slider
+                  range
+                  min={0}
+                  max={2000000}
+                  step={50000}
+                  value={[minPrice, maxPrice]}
+                  onChange={(val: number[]) => {
+                    setMinPrice(val[0]);
+                    setMaxPrice(val[1]);
+                    setCurrentPage(1);
+                  }}
+                  tooltip={{
+                    formatter: (val) => `${val?.toLocaleString('vi-VN')} ₫`
+                  }}
+                  trackStyle={[{ backgroundColor: '#C5A880' }]}
+                  handleStyle={[
+                    { borderColor: '#C5A880', backgroundColor: '#fff' },
+                    { borderColor: '#C5A880', backgroundColor: '#fff' }
+                  ]}
+                />
+                <div className="flex justify-between items-center text-[11px] font-mono text-charcoal">
+                  <span>{minPrice.toLocaleString('vi-VN')} ₫</span>
+                  <span>{maxPrice.toLocaleString('vi-VN')} ₫</span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Color Filter Swatches */}
+          <div className="space-y-3 pt-6 border-t border-borderGray">
+            <div
+              onClick={() => setOpenColor(!openColor)}
+              className="flex items-center justify-between cursor-pointer select-none group"
+            >
+              <h3 className="font-outfit text-xs font-bold uppercase tracking-widest text-ink group-hover:text-primaryGold transition-colors">
+                {t('catalog.filter.color', 'Màu Sắc')}
+              </h3>
+              <DownOutlined className={`text-[9px] text-charcoal transition-transform duration-300 ${openColor ? 'rotate-180' : ''}`} />
+            </div>
+            {openColor && (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {availableColors.map(({ label, value: colorVal }) => {
+                  const isActive = color === colorVal;
+                  const hex = getColorHex(colorVal);
+                  return (
+                    <button
+                      key={colorVal}
+                      onClick={() => {
+                        setColor(isActive ? '' : colorVal);
+                        setCurrentPage(1);
+                      }}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-outfit tracking-wider uppercase border transition-all duration-200 cursor-pointer ${
+                        isActive
+                          ? 'border-primaryGold bg-primaryGold/10 text-primaryGold shadow-sm font-semibold'
+                          : 'border-border-light bg-white text-charcoal hover:border-ink hover:text-ink'
+                      }`}
+                    >
+                      <span
+                        className="w-2.5 h-2.5 rounded-full border border-black/10 shrink-0"
+                        style={{ backgroundColor: hex }}
+                      />
+                      <span>{label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Size Filter Tiles */}
+          <div className="space-y-3 pt-6 border-t border-borderGray">
+            <div
+              onClick={() => setOpenSize(!openSize)}
+              className="flex items-center justify-between cursor-pointer select-none group"
+            >
+              <h3 className="font-outfit text-xs font-bold uppercase tracking-widest text-ink group-hover:text-primaryGold transition-colors">
+                {t('catalog.filter.size', 'Kích Cỡ')}
+              </h3>
+              <DownOutlined className={`text-[9px] text-charcoal transition-transform duration-300 ${openSize ? 'rotate-180' : ''}`} />
+            </div>
+            {openSize && (
+              <div className="grid grid-cols-4 gap-2 mt-2">
+                {availableSizes.map((s) => {
+                  const isActive = size === s;
+                  return (
+                    <button
+                      key={s}
+                      onClick={() => {
+                        setSize(isActive ? '' : s);
+                        setCurrentPage(1);
+                      }}
+                      className={`h-9 flex items-center justify-center text-xs font-outfit tracking-wider uppercase border transition-all duration-200 cursor-pointer ${
+                        isActive
+                          ? 'border-primaryGold bg-primaryGold/10 text-primaryGold font-bold'
+                          : 'border-border-light bg-white text-charcoal hover:border-ink hover:text-ink'
+                      }`}
+                    >
+                      {s}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Clear Filters Button */}
-          {(categorySlug || priceRange || search || sortBy !== 'newest') && (
+          {(categorySlug || minPrice > 0 || maxPrice < 2000000 || search || onlySale || color || size || sortBy !== 'newest') && (
             <Button
               onClick={clearAllFilters}
               className="w-full text-center border border-charcoal text-charcoal hover:border-ink hover:text-ink py-2.5 text-[10px] font-bold uppercase tracking-widest font-outfit transition-colors rounded-none cursor-pointer h-auto bg-transparent"

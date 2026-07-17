@@ -1,4 +1,37 @@
 {
+  "cart": {
+    "title": "Giỏ hàng của bạn",
+    "item": "Sản phẩm",
+    "items": "Sản phẩm",
+    "emptyTitle": "GIỎ HÀNG CỦA BẠN ĐANG TRỐNG",
+    "emptyDesc": "Bạn chưa thêm sản phẩm nào vào giỏ hàng của mình.",
+    "continueShopping": "QUAY LẠI CỬA HÀNG",
+    "warningTitle": "Cảnh báo tồn kho:",
+    "warningDesc": "Có sản phẩm vượt quá số lượng trong kho. Vui lòng điều chỉnh lại trước khi thanh toán.",
+    "size": "Kích thước",
+    "color": "Màu sắc",
+    "maxStock": "Tối đa tồn kho",
+    "deleteBtn": "Xóa sản phẩm",
+    "brandSelection": "LỰA CHỌN NỔI BẬT",
+    "summaryTitle": "Tóm tắt đơn hàng",
+    "subtotal": "Tạm tính",
+    "shippingFee": "Phí vận chuyển",
+    "total": "Tổng cộng",
+    "checkoutBtn": "Tiến hành thanh toán",
+    "guarantee": "Đổi trả miễn phí trong vòng 30 ngày. COD nhận hàng kiểm tra trước khi thanh toán."
+  },
+  "color": {
+    "white": "Trắng",
+    "black": "Đen",
+    "navy": "Xanh Navy",
+    "red": "Đỏ",
+    "beige": "Kem",
+    "grey": "Xám",
+    "green": "Xanh Rêu",
+    "brown": "Nâu",
+    "pink": "Hồng",
+    "gold": "Vàng"
+  },
   "auth": {
     "email": "Email",
     "emailPlaceholder": "example@email.com",
@@ -344,6 +377,13 @@
         "submitBtn": "XÁC NHẬN ĐẶT HÀNG",
         "stockErrorBanner": "Không thể thanh toán: Sản phẩm \"{{name}}\" đã hết hàng trong hệ thống. Vui lòng quay lại giỏ hàng để cập nhật.",
         "submitErrorStock": "ĐẶT HÀNG (CÓ LỖI TỒN KHO)",
+        "errors": {
+          "nameMin": "Họ tên phải từ 2 ký tự trở lên.",
+          "nameMax": "Họ tên không được vượt quá 50 ký tự.",
+          "phoneInvalid": "Số điện thoại 10 số, bắt đầu bằng 03, 05, 07, 08, hoặc 09.",
+          "addressMin": "Địa chỉ chi tiết tối thiểu 10 ký tự.",
+          "addressMax": "Địa chỉ không được vượt quá 255 ký tự."
+        },
         "success": {
           "title": "ĐẶT HÀNG THÀNH CÔNG",
           "subtitle": "Cảm ơn bạn đã mua sắm tại FashionHub. Đơn hàng của bạn đang được xử lý.",
@@ -415,6 +455,55 @@
         "customerInfo": "THÔNG TIN KHÁCH HÀNG",
         "orderStatusHeader": "TRẠNG THÁI ĐƠN HÀNG",
         "statusLockedDesc": "Đơn hàng ở trạng thái cuối không thể chỉnh sửa trạng thái."
+      }
+    },
+    "reviews": {
+      "loading": "Đang tải...",
+      "delete": {
+        "confirm": "Bạn có chắc chắn muốn ẩn đánh giá này không?",
+        "loading": "Đang ẩn...",
+        "btn": "[Ẩn đánh giá]"
+      },
+      "item": {
+        "anonymous": "Khách hàng"
+      },
+      "stats": {
+        "totalCount": "đánh giá"
+      },
+      "list": {
+        "error": "Không thể tải danh sách đánh giá.",
+        "retry": "Thử lại",
+        "empty": "Chưa có đánh giá nào cho sản phẩm này. Hãy là người đầu tiên đánh giá!",
+        "loadMore": "Xem thêm đánh giá"
+      },
+      "form": {
+        "title": "Đánh giá của bạn",
+        "ratingLabel": "Chọn số sao",
+        "commentLabel": "Bình luận chi tiết",
+        "commentPlaceholder": "Chia sẻ cảm nhận thực tế của bạn về chất liệu, kích cỡ, trải nghiệm mặc sản phẩm này...",
+        "photosLabel": "Hình ảnh thực tế (Tối đa 3 ảnh)",
+        "uploadBtn": "Ảnh",
+        "uploadSuccess": "Tải ảnh lên thành công.",
+        "uploadError": "Lỗi khi tải ảnh lên.",
+        "maxPhotosReached": "Đã đạt giới hạn tối đa 3 ảnh.",
+        "submitLoading": "Đang gửi...",
+        "submitBtn": "Gửi đánh giá",
+        "validation": {
+          "ratingRequired": "Vui lòng chọn số sao đánh giá.",
+          "ratingMin": "Đánh giá tối thiểu là 1 sao.",
+          "ratingMax": "Đánh giá tối đa là 5 sao.",
+          "commentMax": "Bình luận không được vượt quá 1000 ký tự.",
+          "imagesMax": "Chỉ được phép đính kèm tối đa 3 hình ảnh.",
+          "imageSizeLimit": "Ảnh không được vượt quá 5MB.",
+          "imageTypeLimit": "Chỉ chấp nhận định dạng ảnh JPG, JPEG, PNG, WEBP."
+        }
+      },
+      "permission": {
+        "notPurchased": "Bạn cần mua sản phẩm này và nhận hàng thành công để viết đánh giá.",
+        "alreadyReviewed": "Cảm ơn bạn! Bạn đã gửi đánh giá cho sản phẩm này rồi.",
+        "notAllowed": "Bạn chưa đủ điều kiện để đánh giá sản phẩm này.",
+        "guest": "Đăng nhập bằng tài khoản thành viên để đánh giá trải nghiệm sản phẩm này.",
+        "loginBtn": "Đăng nhập ngay"
       }
     }
   }
