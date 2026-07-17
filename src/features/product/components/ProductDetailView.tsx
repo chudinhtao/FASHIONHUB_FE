@@ -3,9 +3,9 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { useProductDetailView } from '../hooks';
 import { Button } from '@/components/ui';
-import { InputNumber } from 'antd';
 import { getImageUrl } from '@/lib/utils';
 
 export default function ProductDetailView() {
@@ -22,7 +22,6 @@ export default function ProductDetailView() {
     selectedSize,
     setSelectedSize,
     quantity,
-    setQuantity,
     activeVariant,
     hasStock,
     stockCount,
@@ -71,6 +70,20 @@ export default function ProductDetailView() {
 
   const currentPrice = Number(product.price);
   const originalPrice = product.originalPrice ? Number(product.originalPrice) : null;
+
+  // Helper function to map standard colors to hex for circular preview capsules
+  const getColorHex = (colorName: string) => {
+    const name = colorName.toLowerCase();
+    if (name.includes('black') || name.includes('đen')) return '#1A1A1A';
+    if (name.includes('white') || name.includes('trắng')) return '#FFFFFF';
+    if (name.includes('red') || name.includes('đỏ')) return '#A31D1D';
+    if (name.includes('blue') || name.includes('xanh')) return '#1E3E62';
+    if (name.includes('grey') || name.includes('xám') || name.includes('gray')) return '#808080';
+    if (name.includes('gold') || name.includes('vàng')) return '#B3936B';
+    if (name.includes('cream') || name.includes('kem')) return '#FFFDD0';
+    if (name.includes('brown') || name.includes('nâu')) return '#5C4033';
+    return null;
+  };
 
   return (
     <div className="bg-bgLight min-h-screen text-ink pb-16">
@@ -123,7 +136,7 @@ export default function ProductDetailView() {
                       fill
                       sizes="150px"
                       className="object-cover"
-                    />
+                      />
                   </Button>
                 );
               })}
@@ -165,29 +178,42 @@ export default function ProductDetailView() {
 
             {/* Dynamic Form Fields */}
             <div className="space-y-6 pt-6 border-t border-borderGray">
-              {/* Color selection */}
+              
+              {/* Color selection - Redesigned to be highly visual */}
               {colors.length > 0 && (
-                <div className="space-y-2 select-none">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-charcoal">
+                <div className="space-y-3.5 select-none">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-charcoal block">
                     {t('product.fields.color', 'Màu sắc')}
+                    {selectedColor && (
+                      <span className="text-gold font-bold ml-2 uppercase text-[10px] tracking-widest">
+                        — {selectedColor}
+                      </span>
+                    )}
                   </label>
                   <div className="flex flex-wrap gap-3">
                     {colors.map((color) => {
                       const isActive = selectedColor === color;
+                      const hex = getColorHex(color);
                       return (
                         <Button
                           key={color}
                           onClick={() => {
                             setSelectedColor(color);
-                            setQuantity(1);
+                            handleQtyChange(1 - quantity); // reset quantity selection safely
                           }}
-                          className={`px-4 py-2 text-xs font-semibold uppercase tracking-widest font-outfit bg-white transition-all cursor-pointer h-auto rounded-none ${
+                          className={`flex items-center gap-2.5 px-5 py-2.5 text-xs font-bold uppercase tracking-widest font-outfit transition-all duration-300 rounded-full h-auto cursor-pointer border ${
                             isActive
-                              ? 'border-2 border-ink text-ink font-bold'
-                              : 'border border-borderGray hover:border-ink text-charcoal hover:text-ink'
+                              ? 'bg-ink text-white border-ink scale-105 shadow-[0_4px_12px_rgba(0,0,0,0.15)] ring-2 ring-gold/20'
+                              : 'bg-white text-charcoal border-border-light hover:border-ink hover:text-ink hover:scale-102'
                           }`}
                         >
-                          {color}
+                          {hex && (
+                            <span
+                              className="w-3.5 h-3.5 rounded-full border border-black/15 shrink-0 block"
+                              style={{ backgroundColor: hex }}
+                            />
+                          )}
+                          <span>{color}</span>
                         </Button>
                       );
                     })}
@@ -195,11 +221,16 @@ export default function ProductDetailView() {
                 </div>
               )}
 
-              {/* Size selection */}
+              {/* Size selection - Redesigned square tiles */}
               {sizes.length > 0 && (
-                <div className="space-y-2 select-none">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-charcoal">
+                <div className="space-y-3.5 select-none">
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-charcoal block">
                     {t('product.fields.size', 'Kích cỡ (Size)')}
+                    {selectedSize && (
+                      <span className="text-gold font-bold ml-2 uppercase text-[10px] tracking-widest">
+                        — {selectedSize}
+                      </span>
+                    )}
                   </label>
                   <div className="flex flex-wrap gap-3">
                     {sizes.map((size) => {
@@ -209,12 +240,12 @@ export default function ProductDetailView() {
                           key={size}
                           onClick={() => {
                             setSelectedSize(size);
-                            setQuantity(1);
+                            handleQtyChange(1 - quantity); // reset quantity selection safely
                           }}
-                          className={`w-10 h-10 flex items-center justify-center text-xs font-semibold font-outfit bg-white transition-all cursor-pointer rounded-none ${
+                          className={`w-12 h-12 flex items-center justify-center text-xs font-bold font-outfit transition-all duration-300 rounded-lg cursor-pointer border ${
                             isActive
-                              ? 'border-2 border-ink text-ink font-bold'
-                              : 'border border-borderGray hover:border-ink text-charcoal hover:text-ink'
+                              ? 'bg-ink text-white border-ink scale-110 shadow-[0_4px_12px_rgba(0,0,0,0.15)] font-black ring-2 ring-gold/20'
+                              : 'bg-white text-charcoal border-border-light hover:border-ink hover:text-ink hover:scale-105'
                           }`}
                         >
                           {size}
@@ -226,7 +257,7 @@ export default function ProductDetailView() {
               )}
 
               {/* Stock Level Status */}
-              <div className="text-xs text-zinc-500 flex items-center space-x-2 font-outfit select-none">
+              <div className="text-xs text-zinc-500 flex items-center space-x-2 font-outfit select-none pt-1">
                 <span className={`w-1.5 h-1.5 rounded-full ${hasStock ? 'bg-green-500' : 'bg-red-500'}`}></span>
                 <span>
                   {hasStock
@@ -238,19 +269,29 @@ export default function ProductDetailView() {
                 </span>
               </div>
 
-              {/* Quantity selector and CTA button */}
-              <div className="flex gap-4 pt-2 select-none items-center">
-                {/* Quantity picker */}
-                <InputNumber
-                  min={1}
-                  max={activeVariant?.stock || 1}
-                  value={hasStock ? quantity : 0}
-                  onChange={(val) => val && setQuantity(val)}
-                  disabled={!hasStock}
-                  size="large"
-                  className="h-12 flex items-center rounded-none font-mono text-xs border-borderGray w-24"
-                  controls={true}
-                />
+              {/* Quantity selector and CTA button - Custom minimalist styling */}
+              <div className="flex gap-5 pt-3 select-none items-center">
+                
+                {/* Custom Designer Quantity Picker */}
+                <div className="flex items-center border border-borderGray h-12 bg-white rounded-none select-none shrink-0">
+                  <Button
+                    type="text"
+                    disabled={!hasStock || quantity <= 1}
+                    onClick={() => handleQtyChange(-1)}
+                    className="w-10 h-full flex items-center justify-center text-charcoal hover:text-ink transition-colors cursor-pointer disabled:opacity-20 !p-0 !border-none"
+                    icon={<MinusOutlined style={{ fontSize: '11px' }} />}
+                  />
+                  <div className="w-12 h-full flex items-center justify-center font-mono text-xs font-bold text-ink border-l border-r border-borderGray">
+                    {hasStock ? quantity : 0}
+                  </div>
+                  <Button
+                    type="text"
+                    disabled={!hasStock || quantity >= stockCount}
+                    onClick={() => handleQtyChange(1)}
+                    className="w-10 h-full flex items-center justify-center text-charcoal hover:text-ink transition-colors cursor-pointer disabled:opacity-20 !p-0 !border-none"
+                    icon={<PlusOutlined style={{ fontSize: '11px' }} />}
+                  />
+                </div>
 
                 {/* Add to Cart CTA */}
                 <Button
@@ -259,7 +300,7 @@ export default function ProductDetailView() {
                   type="primary"
                   className={`flex-grow h-12 text-xs font-bold uppercase tracking-widest font-outfit transition-all duration-300 rounded-none cursor-pointer border-none flex items-center justify-center ${
                     hasStock
-                      ? 'bg-ink hover:bg-primaryGold text-white hover:text-white'
+                      ? 'bg-ink hover:bg-primaryGold text-white hover:text-white shadow-md'
                       : 'bg-zinc-300 text-zinc-500 cursor-not-allowed'
                   }`}
                 >

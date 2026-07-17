@@ -26,7 +26,9 @@ export function middleware(request: NextRequest) {
 
   // 1. Bảo vệ các tuyến đường riêng tư (private routes)
   const isPrivateRoute = pathname.startsWith('/profile');
-  if (isPrivateRoute && !token) {
+  const isProfileOrdersDetail = /^\/profile\/orders\/[^\/]+$/.test(pathname);
+
+  if (isPrivateRoute && !isProfileOrdersDetail && !token) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('redirect', pathname);
     return NextResponse.redirect(loginUrl);

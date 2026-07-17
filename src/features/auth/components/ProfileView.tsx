@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Card, Avatar, Badge, Typography, Spin } from 'antd';
-import { UserOutlined, LogoutOutlined, HomeOutlined, PhoneOutlined, MailOutlined, KeyOutlined, CalendarOutlined } from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined, HomeOutlined, PhoneOutlined, MailOutlined, KeyOutlined, CalendarOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Button } from '@/components/ui';
 import { useProfileView } from '../hooks';
 
@@ -140,6 +140,28 @@ export function ProfileView() {
                 {user.address || t('auth.addressEmpty')}
               </Text>
             </div>
+          </div>
+
+          {/* Shopping History Link */}
+          <div className="flex justify-between items-center p-5 bg-zinc-50 border border-border-subtle !mt-6">
+            <div className="flex gap-3 items-center">
+              <ShoppingCartOutlined className="text-primary-gold text-lg" />
+              <div>
+                <span className="block text-[11px] font-bold uppercase tracking-wider text-text-dark">
+                  {currentLanguage === 'vi' ? 'QUẢN LÝ ĐƠN HÀNG' : 'ORDER HISTORY'}
+                </span>
+                <span className="text-xs text-text-light font-light block mt-0.5">
+                  {currentLanguage === 'vi' ? 'Xem và theo dõi lịch sử mua hàng của bạn.' : 'View and track your purchase history.'}
+                </span>
+              </div>
+            </div>
+            <Button
+              type="primary"
+              onClick={() => router.push('/profile/orders')}
+              className="bg-zinc-800 text-white uppercase text-[10px] font-bold tracking-widest px-4 h-9 flex items-center transition-all duration-300 hover:bg-black"
+            >
+              {currentLanguage === 'vi' ? 'Xem lịch sử' : 'View history'}
+            </Button>
           </div>
         </div>
       </div>

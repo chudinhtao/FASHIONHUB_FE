@@ -150,7 +150,8 @@
     "toast": {
       "invalidVariant": "Invalid product variant selected",
       "outOfStock": "Product is out of stock",
-      "addSuccess": "Added product to cart successfully!"
+      "addSuccess": "Added product to cart successfully!",
+      "loginRequired": "Please login to add products to your shopping bag."
     },
     "state": {
       "errorTitle": "Unable to load product information",
@@ -308,6 +309,112 @@
       "colorGold": "Gold",
       "colorPink": "Pink",
       "colorGreen": "Green"
+    },
+    "cart": {
+      "title": "Shopping Bag",
+      "itemsCount": "Items",
+      "item": "item",
+      "items": "items",
+      "emptyTitle": "YOUR SHOPPING BAG IS EMPTY",
+      "emptyDesc": "You haven't added any products to your shopping bag yet.",
+      "continueShopping": "CONTINUE SHOPPING",
+      "subtotal": "Subtotal",
+      "shippingFee": "Shipping",
+      "total": "Total",
+      "checkoutBtn": "Proceed to Checkout",
+      "guarantee": "Free return within 30 days. Cash on delivery (COD) package inspection before payment.",
+      "stockWarning": "Product \"{{name}}\" only has {{stock}} units left in stock. The quantity has been limited automatically.",
+      "deleteConfirm": "Remove this item from your shopping bag?",
+      "size": "Size",
+      "color": "Color"
+    },
+    "orders": {
+      "checkout": {
+        "title": "PROCEED TO CHECKOUT",
+        "shippingHeader": "Shipping details",
+        "fullName": "Recipient Full Name *",
+        "fullNamePlaceholder": "Enter full name",
+        "phone": "Phone Number *",
+        "phonePlaceholder": "Enter phone number",
+        "address": "Shipping Address *",
+        "addressPlaceholder": "Street number, street name, ward, district, city",
+        "notes": "Order Notes (Optional)",
+        "notesPlaceholder": "e.g., Deliver during office hours, call before arrival",
+        "codNotice": "COD Payment: You will pay cash directly to the courier agent after checking your package.",
+        "submitBtn": "PLACE ORDER",
+        "stockErrorBanner": "Cannot place order: Product \"{{name}}\" is out of stock in our system. Please return to cart to update.",
+        "submitErrorStock": "PLACE ORDER (STOCK ERRORS)",
+        "success": {
+          "title": "ORDER PLACED SUCCESSFULLY",
+          "subtitle": "Thank you for shopping at FashionHub. Your order is being processed.",
+          "orderNumber": "Your order number is",
+          "viewHistory": "VIEW ORDER HISTORY",
+          "backToHome": "BACK TO HOMEPAGE"
+        }
+      },
+      "history": {
+        "title": "ORDER HISTORY",
+        "subtitle": "Track your shopping orders placed at FashionHub.",
+        "orderNumber": "Order",
+        "date": "Date",
+        "status": "Status",
+        "total": "Total",
+        "actions": "Actions",
+        "viewDetail": "Details",
+        "emptyTitle": "YOU HAVE NO ORDERS YET",
+        "emptyDesc": "Start shopping to create your first order."
+      },
+      "detail": {
+        "title": "ORDER DETAILS",
+        "orderNumber": "Order Number",
+        "date": "Date",
+        "status": "Status",
+        "payment": "Payment",
+        "paymentMethod": "Method",
+        "paymentStatus": "Payment Status",
+        "recipient": "Recipient",
+        "phone": "Phone",
+        "address": "Address",
+        "notes": "Notes",
+        "subtotal": "Subtotal",
+        "shipping": "Shipping",
+        "total": "Total",
+        "cancelBtn": "Cancel Order",
+        "cancelConfirm": "Are you sure you want to cancel this order?",
+        "editAddressBtn": "Edit Address",
+        "saveAddress": "Save Address",
+        "cancelEdit": "Cancel",
+        "orderItems": "ORDER ITEMS",
+        "statusPending": "Pending",
+        "statusConfirmed": "Confirmed",
+        "statusPreparing": "Preparing",
+        "statusShipping": "Shipping",
+        "statusDelivered": "Delivered",
+        "statusCancelled": "Cancelled",
+        "statusReturned": "Returned",
+        "paymentPending": "Pending",
+        "paymentPaid": "Paid",
+        "paymentFailed": "Failed"
+      },
+      "admin": {
+        "title": "ORDER MANAGEMENT",
+        "subtitle": "View system orders list and update status values.",
+        "searchPlaceholder": "Search order number, recipient name, phone...",
+        "colOrderNumber": "Order",
+        "colRecipient": "Customer",
+        "colDate": "Date",
+        "colTotal": "Total",
+        "colStatus": "Status",
+        "colActions": "Actions",
+        "updateStatusTitle": "Update Status",
+        "selectStatus": "Select status...",
+        "selectPaymentStatus": "Select payment status...",
+        "saveBtn": "Update",
+        "detailTitle": "ORDER DETAILS (ADMIN)",
+        "customerInfo": "CUSTOMER INFORMATION",
+        "orderStatusHeader": "ORDER STATUS HISTORY",
+        "statusLockedDesc": "Orders in terminal status values cannot be modified."
+      }
     }
   }
 }
