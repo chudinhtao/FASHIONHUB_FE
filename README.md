@@ -175,6 +175,16 @@ Lệnh này sẽ khởi chạy một container PostgreSQL tại cổng `5433` (�
 ![Product Detail FashionHub](docs/screenshots/03_product_detail.png)
 
 ---
+**Giỏ hàng - Chọn số lượng & Tổng tiền theo biến thể**
+
+![Product Detail FashionHub](docs/screenshots/04_cart.png)
+
+---
+**Chi tiết đơn hàng - Thông tin khách hàng**
+
+![Product Detail FashionHub](docs/screenshots/05_detailorder.png)
+
+---
 
 ### 💼 Phân hệ Quản trị (Admin Panel)
 
@@ -184,7 +194,7 @@ Lệnh này sẽ khởi chạy một container PostgreSQL tại cổng `5433` (�
 
 ---
 
-**Quản lý đơn hàng — Danh sách & cập nhật trạng thái**
+**Chi tiết đơn hàng — Cập nhật trạng thái đơn hàng**
 
 ![Admin Orders FashionHub](docs/screenshots/07_admin_orders.png)
 
