@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useAuthStore } from '@/store/auth';
-import { useCartStore } from '@/store/cart';
+import { useCartView } from '@/features/cart/hooks';
 import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 import { Badge, Space } from 'antd';
 import Link from 'next/link';
@@ -12,8 +12,7 @@ export default function Header() {
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
   const user = useAuthStore((state) => state.user);
-  const items = useCartStore((state) => state.items);
-  const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
+  const { totalCount } = useCartView();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-borderGray bg-white/80 backdrop-blur-md">
@@ -63,7 +62,7 @@ export default function Header() {
 
             {/* Cart */}
             <Link href="/cart" className="text-zinc-600 hover:text-black transition-all-300">
-              <Badge count={totalItems} size="small" color="#C5A880">
+              <Badge count={totalCount} size="small" color="#C5A880">
                 <ShoppingCartOutlined style={{ fontSize: '22px' }} />
               </Badge>
             </Link>

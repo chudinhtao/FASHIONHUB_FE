@@ -31,6 +31,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       path: '/admin/products',
     },
     {
+      name: t('admin.menu.orders', 'Quản Lý Đơn Hàng'),
+      path: '/admin/orders',
+    },
+    {
       name: t('admin.menu.profile', 'Hồ Sơ Cá Nhân'),
       path: '/admin/profile',
     },
@@ -78,22 +82,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
         </Link>
       </aside>
-
-      {/* RIGHT CONTAINER */}
-      <div className="flex-grow pl-64 flex flex-col min-h-screen">
-        {/* ADMIN TOPBAR */}
-        <header className="sticky top-0 z-20 h-[72px] px-6 bg-bgLight border-b border-borderGray flex items-center justify-between font-outfit">
-          <div className="text-[10px] font-medium uppercase tracking-wider text-charcoal">
-            <span>{t('admin.breadcrumb.admin', 'Quản trị')}</span>
-            <span className="mx-2 text-borderGray">/</span>
-            <span className="text-ink font-semibold">
-              {pathname.includes('categories')
-                ? t('admin.breadcrumb.categories', 'Danh mục')
-                : pathname.includes('profile')
-                ? t('admin.breadcrumb.profile', 'Hồ sơ cá nhân')
-                : t('admin.breadcrumb.products', 'Sản phẩm')}
-            </span>
-          </div>
+ 
+       {/* RIGHT CONTAINER */}
+       <div className="flex-grow pl-64 flex flex-col min-h-screen">
+         {/* ADMIN TOPBAR */}
+         <header className="sticky top-0 z-20 h-[72px] px-6 bg-bgLight border-b border-borderGray flex items-center justify-between font-outfit">
+           <div className="text-[10px] font-medium uppercase tracking-wider text-charcoal">
+             <span>{t('admin.breadcrumb.admin', 'Quản trị')}</span>
+             <span className="mx-2 text-borderGray">/</span>
+             <span className="text-ink font-semibold">
+               {pathname.includes('categories')
+                 ? t('admin.breadcrumb.categories', 'Danh mục')
+                 : pathname.includes('orders')
+                 ? t('admin.breadcrumb.orders', 'Đơn hàng')
+                 : pathname.includes('profile')
+                 ? t('admin.breadcrumb.profile', 'Hồ sơ cá nhân')
+                 : t('admin.breadcrumb.products', 'Sản phẩm')}
+             </span>
+           </div>
           <div className="flex items-center space-x-6">
             {/* Language Switcher */}
             <div className="flex gap-1.5 select-none text-[10px] font-bold font-outfit shrink-0 items-center">

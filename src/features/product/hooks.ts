@@ -5,6 +5,8 @@ import { Modal } from 'antd';
 import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import { productApi } from './api';
 import { useCategories } from '@/features/category/hooks';
+import { useAuthStore } from '@/store/auth';
+import { useAddToCart } from '@/features/cart/hooks';
 import { useCartStore } from '@/store/cart';
 import { toast } from 'sonner';
 import { CreateProductInput, ProductShort } from '@/types';
@@ -191,8 +193,10 @@ export const useProductDetailView = () => {
   // Fetch product detail
   const { data: product, isLoading, isError, refetch } = useProductDetail(slug);
 
-  // Cart store
-  const addItem = useCartStore((state) => state.addItem);
+  // Cart integration
+  const { isAuthenticated } = useAuthStore();
+  const addToCartMut = useAddToCart();
+  const localCart = useCartStore();
 
   // States
   const [selectedImage, setSelectedImage] = useState<string>('');
@@ -248,18 +252,24 @@ export const useProductDetailView = () => {
       return;
     }
 
-    addItem({
-      id: activeVariant.id,
-      productId: product.id,
-      name: product.name,
-      price: Number(product.price),
-      quantity: quantity,
-      size: selectedSize || null,
-      color: selectedColor || null,
-      image: selectedImage || undefined,
-    });
-
-    toast.success(t('product.toast.addSuccess', 'Đã thêm sản phẩm vào giỏ hàng!'));
+    if (isAuthenticated) {
+      addToCartMut.mutate({
+        variantId: activeVariant.id,
+        quantity: quantity,
+      });
+    } else {
+      localCart.addItem({
+        id: activeVariant.id,
+        productId: product.id,
+        name: product.name,
+        price: Number(product.price),
+        quantity: quantity,
+        size: selectedSize || null,
+        color: selectedColor || null,
+        image: selectedImage || undefined,
+      });
+      toast.success(t('product.toast.addSuccess', 'Đã thêm sản phẩm vào giỏ hàng!'));
+    }
   };
 
   return {
