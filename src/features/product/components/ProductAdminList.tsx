@@ -198,11 +198,11 @@ export default function ProductAdminList() {
             rowKey="id"
             loading={isLoading}
             pagination={
-              meta && meta.totalPages > 1
+              meta
                 ? {
                     current: currentPage,
                     pageSize: 10,
-                    total: meta.totalItems,
+                    total: meta.totalItems ?? (meta as any).total,
                     onChange: (page) => setCurrentPage(page),
                     showSizeChanger: false,
                     position: ['bottomRight'],

@@ -8,7 +8,7 @@ export default function CheckoutPage() {
   const { formMethods, handlePlaceOrder } = useCheckoutView();
 
   return (
-    <main className="max-w-[1200px] mx-auto px-6 py-10 min-h-[calc(100vh-64px)] flex flex-col justify-start">
+    <main className="max-w-[1200px] mx-auto px-6 pt-4 pb-10 min-h-[calc(100vh-64px)] flex flex-col justify-start">
       <FormProvider {...formMethods}>
         <form
           id="shipping-form"

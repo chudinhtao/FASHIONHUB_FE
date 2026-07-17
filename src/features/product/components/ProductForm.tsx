@@ -10,6 +10,7 @@ import { getImageUrl } from '@/lib/utils';
 import Image from 'next/image';
 import { Tabs, Spin, Form, Select } from 'antd';
 import { UploadOutlined, LinkOutlined, DeleteOutlined, StarOutlined, CloseOutlined } from '@ant-design/icons';
+import RichTextEditor from '@/components/common/RichTextEditor';
 
 interface ProductFormProps {
   initialValues?: Partial<ProductFormValues>;
@@ -75,7 +76,7 @@ export default function ProductForm({ initialValues, onSubmit, isSubmitting }: P
                 render={({ field }) => (
                   <Input
                     {...field}
-                    placeholder="Ví dụ: Áo Thun Polo Premium Basic"
+                    placeholder={t('admin.form.placeholderName', 'Ví dụ: Áo Thun Polo Premium Basic')}
                     className="elegant-input"
                   />
                 )}
@@ -141,11 +142,10 @@ export default function ProductForm({ initialValues, onSubmit, isSubmitting }: P
                 name="description"
                 control={control}
                 render={({ field }) => (
-                  <TextArea
-                    {...field}
-                    rows={8}
-                    placeholder="Mô tả chi tiết về chất liệu, kiểu dáng, phom dáng và cách giặt ủi bảo quản..."
-                    className="elegant-input font-light leading-relaxed p-3"
+                  <RichTextEditor
+                    value={field.value || ''}
+                    onChange={field.onChange}
+                    placeholder={t('admin.form.placeholderDesc', 'Mô tả chi tiết về chất liệu, kiểu dáng, phom dáng và cách giặt ủi bảo quản...')}
                   />
                 )}
               />
@@ -166,7 +166,7 @@ export default function ProductForm({ initialValues, onSubmit, isSubmitting }: P
           {/* Card Pricing */}
           <div className="bg-bgLight border border-borderGray p-6 space-y-6 rounded-none">
             <h4 className="font-playfair text-xs font-bold uppercase tracking-widest text-primaryGold border-b border-borderGray pb-2 mb-4">
-              Cấu hình giá bán sản phẩm
+              {t('admin.form.priceConfig', 'Cấu hình giá bán sản phẩm')}
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Price Selling */}
@@ -221,7 +221,7 @@ export default function ProductForm({ initialValues, onSubmit, isSubmitting }: P
           <div className="bg-bgLight border border-borderGray p-6 space-y-6 rounded-none">
             <div className="flex items-center justify-between border-b border-borderGray pb-2 mb-4">
               <h4 className="font-playfair text-xs font-bold uppercase tracking-widest text-primaryGold">
-                Biến thể phân loại kích cỡ & màu sắc
+                {t('admin.form.variantsConfig', 'Biến thể phân loại kích cỡ & màu sắc')}
               </h4>
               <Button
                 type="link"
@@ -246,28 +246,20 @@ export default function ProductForm({ initialValues, onSubmit, isSubmitting }: P
                       <CloseOutlined className="text-xs" />
                     </Button>
                   )}
-                  
+
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-start">
                     {/* Color */}
                     <div className="space-y-1 flex flex-col justify-start">
                       <label className="font-semibold text-charcoal uppercase text-[9px] tracking-wider h-5 flex items-center mb-1">
                         {t('admin.form.variantColor')}
                       </label>
-                      <select
+                      <input
+                        type="text"
                         {...register(`variants.${index}.color` as const)}
-                        className="w-full border-b border-t-0 border-x-0 border-b-border-gray py-1 text-xs focus:outline-none focus:border-b-primaryGold bg-transparent rounded-none cursor-pointer h-7"
-                        onChange={() => suggestSku(index)}
-                      >
-                        <option value="White">{t('admin.form.colorWhite')}</option>
-                        <option value="Black">{t('admin.form.colorBlack')}</option>
-                        <option value="Red">{t('admin.form.colorRed')}</option>
-                        <option value="Blue">{t('admin.form.colorBlue')}</option>
-                        <option value="Grey">{t('admin.form.colorGrey')}</option>
-                        <option value="Beige">{t('admin.form.colorBeige')}</option>
-                        <option value="Gold">{t('admin.form.colorGold')}</option>
-                        <option value="Pink">{t('admin.form.colorPink')}</option>
-                        <option value="Green">{t('admin.form.colorGreen')}</option>
-                      </select>
+                        placeholder="White, Black, Red..."
+                        className="w-full border-b border-t-0 border-x-0 border-b-border-gray py-1 text-xs focus:outline-none focus:border-b-primaryGold bg-transparent rounded-none h-7"
+                        onBlur={() => suggestSku(index)}
+                      />
                       {errors.variants?.[index]?.color && (
                         <span className="text-red-500 text-[8px] mt-1 block leading-tight">
                           {errors.variants[index].color.message}
@@ -315,14 +307,14 @@ export default function ProductForm({ initialValues, onSubmit, isSubmitting }: P
                     {/* SKU */}
                     <div className="space-y-1 flex flex-col justify-start">
                       <label className="font-semibold text-charcoal uppercase text-[9px] tracking-wider h-5 flex items-center justify-between mb-1">
-                        <span>{t('admin.form.variantSku')}</span>
+                        <span>{t('admin.form.variantSku', 'SKU')}</span>
                         <Button
                           type="link"
                           size="small"
                           onClick={() => suggestSku(index)}
                           className="text-[8px] text-primaryGold hover:text-ink uppercase hover:underline p-0 h-auto font-bold"
                         >
-                          Gợi ý
+                          {t('admin.form.skuSuggest', 'Gợi ý')}
                         </Button>
                       </label>
                       <input
@@ -429,9 +421,8 @@ export default function ProductForm({ initialValues, onSubmit, isSubmitting }: P
                     return (
                       <div
                         key={field.id}
-                        className={`relative aspect-[3/4] bg-bg-neutral border overflow-hidden select-none group transition-all duration-300 ${
-                          isPrimary ? 'border-primaryGold ring-2 ring-primaryGold ring-offset-2' : 'border-borderGray hover:border-zinc-400'
-                        }`}
+                        className={`relative aspect-[3/4] bg-bg-neutral border overflow-hidden select-none group transition-all duration-300 ${isPrimary ? 'border-primaryGold ring-2 ring-primaryGold ring-offset-2' : 'border-borderGray hover:border-zinc-400'
+                          }`}
                       >
                         {/* Image element */}
                         <Image
@@ -452,26 +443,23 @@ export default function ProductForm({ initialValues, onSubmit, isSubmitting }: P
                         {/* Hover controls overlay */}
                         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center gap-2 p-3 z-20">
                           {!isPrimary && (
-                            <Button
-                              type="default"
-                              size="small"
+                            <button
+                              type="button"
                               onClick={() => handlePrimaryRadioChange(index)}
                               className="w-full text-[9px] font-bold uppercase tracking-wider bg-white border-none text-ink hover:bg-primaryGold hover:text-white rounded-none cursor-pointer h-7 flex items-center justify-center gap-1"
                             >
                               <StarOutlined />
                               {t('admin.form.choosePrimary')}
-                            </Button>
+                            </button>
                           )}
-                          <Button
-                            type="default"
-                            size="small"
-                            danger
+                          <button
+                            type="button"
                             onClick={() => removeImage(index)}
                             className="w-full text-[9px] font-bold uppercase tracking-wider bg-red-600 border-none text-white hover:bg-red-700 rounded-none cursor-pointer h-7 flex items-center justify-center gap-1"
                           >
                             <DeleteOutlined />
                             {t('admin.form.deleteBtn')}
-                          </Button>
+                          </button>
                         </div>
                       </div>
                     );
@@ -488,7 +476,7 @@ export default function ProductForm({ initialValues, onSubmit, isSubmitting }: P
 
   return (
     <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="grid grid-cols-1 lg:grid-cols-3 gap-6 font-outfit text-xs text-ink">
-      
+
       {/* LEFT SECTION: 3-Tabs layout (Col-span 2) */}
       <div className="lg:col-span-2 space-y-6">
         <div className="bg-bgLight border border-borderGray p-6 rounded-none">
@@ -568,7 +556,7 @@ export default function ProductForm({ initialValues, onSubmit, isSubmitting }: P
           </Button>
         </div>
       </div>
-      
+
     </form>
   );
 }

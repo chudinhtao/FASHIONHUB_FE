@@ -51,9 +51,8 @@ export const CheckoutSummary: React.FC = () => {
                 <img
                   src={primaryImage?.url || '/images/placeholder.jpg'}
                   alt={product.name}
-                  className={`mini-img w-16 aspect-[3/4] object-cover bg-surface-light ${
-                    isOutOfStock ? 'grayscale opacity-75' : ''
-                  }`}
+                  className={`mini-img w-16 aspect-[3/4] object-cover bg-surface-light ${isOutOfStock ? 'grayscale opacity-75' : ''
+                    }`}
                 />
                 <div>
                   <div
@@ -68,7 +67,7 @@ export const CheckoutSummary: React.FC = () => {
                     </div>
                   ) : (
                     <div className="mini-qty text-xs text-charcoal mt-0.5">
-                      Size: {item.variant.size || 'N/A'} | Qty: {item.quantity}
+                      {t('cart.size', 'Kích thước')}: {item.variant.size || 'N/A'} | {t('orders.detail.qty', 'Số lượng')}: {item.quantity}
                     </div>
                   )}
                 </div>

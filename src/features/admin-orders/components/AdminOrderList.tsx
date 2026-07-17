@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { Pagination } from 'antd';
 import { useAdminOrdersView } from '@/features/orders/hooks';
 import { OrderStatus } from '@/types';
 import { Table } from '@/components/ui/Table';
@@ -85,18 +84,20 @@ export const AdminOrderList: React.FC = () => {
   ];
 
   return (
-    <div className="w-full font-sans">
-      {/* Dynamic PageHeader */}
-      <PageHeader
-        title={t('orders.admin.title', 'Quản Lý Đơn Hàng')}
-        description={t('orders.admin.subtitle', 'Xem danh sách và cập nhật trạng thái đơn hàng của hệ thống.')}
-        breadcrumbs={[
-          { title: t('admin.breadcrumb.admin', 'Quản trị'), href: '/admin' },
-          { title: t('admin.breadcrumb.orders', 'Đơn hàng') }
-        ]}
-      />
+    <div className="space-y-6">
+      {/* Page Header */}
+      <div className="flex items-center justify-between pb-4 border-b border-borderGray select-none">
+        <div>
+          <h1 className="text-xl font-bold font-playfair text-ink uppercase tracking-wider">
+            {t('orders.admin.title', 'Quản Lý Đơn Hàng')}
+          </h1>
+          <p className="text-xs text-charcoal mt-1">
+            {t('orders.admin.subtitle', 'Xem danh sách và cập nhật trạng thái đơn hàng của hệ thống.')}
+          </p>
+        </div>
+      </div>
 
-      <div className="px-6">
+      <div>
         {/* Filters toolbar */}
         <div className="flex gap-4 mb-8 max-sm:flex-col items-center">
           {/* Search bar with shared Input */}
@@ -139,29 +140,27 @@ export const AdminOrderList: React.FC = () => {
             description={t('catalog.state.emptySubtitle', 'Thử điều chỉnh lại từ khóa tìm kiếm hoặc bộ lọc trạng thái.')}
           />
         ) : (
-          <>
+          <div className="bg-bgLight border border-borderGray rounded-none overflow-hidden select-none">
             <Table
               columns={columns}
               dataSource={orders}
               rowKey="id"
-              pagination={false}
+              pagination={
+                meta
+                  ? {
+                      current: page,
+                      pageSize: 10,
+                      total: meta.totalItems ?? (meta as any).total,
+                      onChange: (p) => setPage(p),
+                      showSizeChanger: false,
+                      position: ['bottomRight'],
+                      className: '!m-0 p-4 border-t border-border-gray bg-bg-neutral font-mono text-xs select-none',
+                    }
+                  : false
+              }
               className="elegant-table"
             />
-
-            {/* Pagination */}
-            {meta && meta.totalPages > 1 && (
-              <div className="flex justify-center mt-8 pt-6 border-t border-border-light">
-                <Pagination
-                  current={page}
-                  total={meta.totalItems}
-                  pageSize={meta.itemCount}
-                  onChange={(p) => setPage(p)}
-                  showSizeChanger={false}
-                  className="elegant-pagination"
-                />
-              </div>
-            )}
-          </>
+          </div>
         )}
       </div>
     </div>

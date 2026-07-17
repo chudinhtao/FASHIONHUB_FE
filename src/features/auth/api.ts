@@ -44,4 +44,11 @@ export const authApi = {
   async resetPassword(data: any): Promise<ApiResponse<void>> {
     return api.post('/auth/reset-password', data);
   },
+
+  /**
+   * Cập nhật thông tin cá nhân
+   */
+  async updateMe(data: { name: string; phone?: string; address?: string }): Promise<ApiResponse<User>> {
+    return api.put('/auth/me', data);
+  },
 };

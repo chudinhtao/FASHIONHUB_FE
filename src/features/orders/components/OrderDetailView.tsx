@@ -167,8 +167,8 @@ export const OrderDetailView: React.FC<OrderDetailViewProps> = ({ orderId }) => 
                         <h4 className="font-serif text-[15.5px] text-ink leading-tight font-medium">
                           {product.name}
                         </h4>
-                        <div className="text-[11.5px] text-charcoal font-light">
-                          Size: <span className="font-semibold text-ink">{item.variant.size || 'N/A'}</span> | Qty: <span className="font-semibold text-ink">{item.quantity}</span>
+                        <div className="text-[11px] text-charcoal font-light">
+                          {t('cart.size', 'Kích thước')}: <span className="font-semibold text-ink">{item.variant.size || 'N/A'}</span> | {t('orders.detail.qty', 'Số lượng')}: <span className="font-semibold text-ink">{item.quantity}</span>
                         </div>
                       </div>
                     </div>
@@ -193,7 +193,7 @@ export const OrderDetailView: React.FC<OrderDetailViewProps> = ({ orderId }) => 
             <div className="mb-6">
               <div className="flex justify-between items-center mb-3.5 border-b border-border-light pb-2">
                 <h3 className="text-xs font-bold uppercase tracking-widest text-ink">
-                  {t('orders.detail.recipient', 'Địa Chỉ Nhận Hàng')}
+                  {t('orders.detail.recipient', 'Địa Chi Nhận Hàng')}
                 </h3>
                 {isPending && !isEditingAddress && (
                   <Button
@@ -216,7 +216,7 @@ export const OrderDetailView: React.FC<OrderDetailViewProps> = ({ orderId }) => 
                         render={({ field }) => (
                           <Input
                             {...field}
-                            placeholder="Tên người nhận"
+                            placeholder={t('orders.checkout.recipientNamePlaceholder', 'Tên người nhận')}
                             className="elegant-input text-xs h-[38px]"
                           />
                         )}
@@ -230,7 +230,7 @@ export const OrderDetailView: React.FC<OrderDetailViewProps> = ({ orderId }) => 
                         render={({ field }) => (
                           <Input
                             {...field}
-                            placeholder="Số điện thoại"
+                            placeholder={t('orders.checkout.phonePlaceholder', 'Số điện thoại')}
                             className="elegant-input text-xs h-[38px]"
                           />
                         )}
@@ -244,7 +244,7 @@ export const OrderDetailView: React.FC<OrderDetailViewProps> = ({ orderId }) => 
                         render={({ field }) => (
                           <Input
                             {...field}
-                            placeholder="Địa chỉ nhận hàng"
+                            placeholder={t('orders.checkout.addressPlaceholder', 'Địa chỉ nhận hàng')}
                             className="elegant-input text-xs h-[38px]"
                           />
                         )}

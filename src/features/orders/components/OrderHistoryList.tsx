@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Pagination } from 'antd';
 import { useOrderHistoryView } from '../hooks';
 import { Table } from '@/components/ui/Table';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
@@ -91,27 +90,27 @@ export const OrderHistoryList: React.FC = () => {
         </p>
       </div>
 
-      <Table
-        columns={columns}
-        dataSource={orders}
-        rowKey="id"
-        pagination={false}
-        className="elegant-table"
-      />
-
-      {/* Pagination */}
-      {meta && meta.totalPages > 1 && (
-        <div className="flex justify-center mt-8 pt-6 border-t border-border-light">
-          <Pagination
-            current={page}
-            total={meta.totalItems}
-            pageSize={meta.itemCount}
-            onChange={(p) => setPage(p)}
-            showSizeChanger={false}
-            className="elegant-pagination"
-          />
-        </div>
-      )}
+      <div className="bg-bgLight border border-borderGray rounded-none overflow-hidden select-none">
+        <Table
+          columns={columns}
+          dataSource={orders}
+          rowKey="id"
+          pagination={
+            meta
+              ? {
+                  current: page,
+                  pageSize: 10,
+                  total: meta.totalItems ?? (meta as any).total,
+                  onChange: (p) => setPage(p),
+                  showSizeChanger: false,
+                  position: ['bottomRight'],
+                  className: '!m-0 p-4 border-t border-border-gray bg-bg-neutral font-mono text-xs select-none',
+                }
+              : false
+          }
+          className="elegant-table"
+        />
+      </div>
     </div>
   );
 };

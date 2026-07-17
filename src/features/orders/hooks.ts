@@ -33,12 +33,13 @@ export const useOrderHistory = (params?: { page?: number; limit?: number }) => {
   const { isAuthenticated } = useAuthStore();
   
   return useQuery({
-    queryKey: ['orders', params],
+    queryKey: ['orders', isAuthenticated, params],
     queryFn: async () => {
       const res = await ordersApi.getHistory(params);
       return res;
     },
     enabled: isAuthenticated,
+    staleTime: 0,
   });
 };
 
@@ -98,12 +99,13 @@ export const useAdminOrders = (params?: {
   const isAdmin = isAuthenticated && user?.role === 'ADMIN';
   
   return useQuery({
-    queryKey: ['admin-orders', params],
+    queryKey: ['admin-orders', isAdmin, params],
     queryFn: async () => {
       const res = await ordersApi.findAllAdmin(params);
       return res;
     },
     enabled: isAdmin,
+    staleTime: 0,
   });
 };
 
@@ -209,7 +211,7 @@ export const useCheckoutView = () => {
 export const useOrderHistoryView = () => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
-  const { data: response, isLoading } = useOrderHistory({ page, limit: 10 });
+  const { data: response, isLoading, isFetching } = useOrderHistory({ page, limit: 10 });
 
   const getStatusText = (status: string) => {
     switch (status) {
@@ -254,7 +256,7 @@ export const useOrderHistoryView = () => {
     setPage,
     orders,
     meta,
-    isLoading,
+    isLoading: isLoading || isFetching,
     getStatusText,
     getStatusColor,
   };
@@ -396,7 +398,7 @@ export const useAdminOrdersView = () => {
   const [search, setSearch] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus | ''>('');
 
-  const { data: response, isLoading } = useAdminOrders({
+  const { data: response, isLoading, isFetching } = useAdminOrders({
     page,
     limit: 10,
     search: search || undefined,
@@ -450,7 +452,7 @@ export const useAdminOrdersView = () => {
     setSelectedStatus,
     orders,
     meta,
-    isLoading,
+    isLoading: isLoading || isFetching,
     getStatusText,
     getStatusColor,
   };

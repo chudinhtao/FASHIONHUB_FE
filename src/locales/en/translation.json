@@ -1,4 +1,37 @@
 {
+  "cart": {
+    "title": "Your Shopping Bag",
+    "item": "ITEM",
+    "items": "ITEMS",
+    "emptyTitle": "YOUR CART IS CURRENTLY EMPTY",
+    "emptyDesc": "You haven't added any products to your cart yet.",
+    "continueShopping": "CONTINUE SHOPPING",
+    "warningTitle": "Stock Warning:",
+    "warningDesc": "Some items exceed available stock. Please adjust quantity before checkout.",
+    "size": "Size",
+    "color": "Color",
+    "maxStock": "Max Stock Reached",
+    "deleteBtn": "Delete item",
+    "brandSelection": "FASHIONHUB SELECTION",
+    "summaryTitle": "Order Summary",
+    "subtotal": "Subtotal",
+    "shippingFee": "Shipping fee",
+    "total": "Total",
+    "checkoutBtn": "Proceed to Checkout",
+    "guarantee": "Free returns within 30 days. Pay cash on delivery (COD) after checking the package."
+  },
+  "color": {
+    "white": "White",
+    "black": "Black",
+    "navy": "Navy Blue",
+    "red": "Red",
+    "beige": "Beige",
+    "grey": "Grey",
+    "green": "Olive Green",
+    "brown": "Brown",
+    "pink": "Pink",
+    "gold": "Gold"
+  },
   "auth": {
     "email": "Email",
     "emailPlaceholder": "example@email.com",
@@ -344,6 +377,13 @@
         "submitBtn": "PLACE ORDER",
         "stockErrorBanner": "Cannot place order: Product \"{{name}}\" is out of stock in our system. Please return to cart to update.",
         "submitErrorStock": "PLACE ORDER (STOCK ERRORS)",
+        "errors": {
+          "nameMin": "Name must be at least 2 characters.",
+          "nameMax": "Name cannot exceed 50 characters.",
+          "phoneInvalid": "Invalid phone number. Must be 10 digits starting with 03, 05, 07, 08, or 09.",
+          "addressMin": "Detailed address must be at least 10 characters.",
+          "addressMax": "Address cannot exceed 255 characters."
+        },
         "success": {
           "title": "ORDER PLACED SUCCESSFULLY",
           "subtitle": "Thank you for shopping at FashionHub. Your order is being processed.",
@@ -414,6 +454,55 @@
         "customerInfo": "CUSTOMER INFORMATION",
         "orderStatusHeader": "ORDER STATUS HISTORY",
         "statusLockedDesc": "Orders in terminal status values cannot be modified."
+      }
+    },
+    "reviews": {
+      "loading": "Loading...",
+      "delete": {
+        "confirm": "Are you sure you want to hide this review?",
+        "loading": "Hiding...",
+        "btn": "[Hide review]"
+      },
+      "item": {
+        "anonymous": "Customer"
+      },
+      "stats": {
+        "totalCount": "reviews"
+      },
+      "list": {
+        "error": "Failed to load reviews.",
+        "retry": "Retry",
+        "empty": "No reviews yet for this product. Be the first to write one!",
+        "loadMore": "Load more reviews"
+      },
+      "form": {
+        "title": "Your review",
+        "ratingLabel": "Select stars",
+        "commentLabel": "Detailed comment",
+        "commentPlaceholder": "Share your actual experience with fabric quality, sizing, fit...",
+        "photosLabel": "Real photos (Max 3)",
+        "uploadBtn": "Photos",
+        "uploadSuccess": "Image uploaded successfully.",
+        "uploadError": "Error uploading image.",
+        "maxPhotosReached": "Maximum of 3 images reached.",
+        "submitLoading": "Sending...",
+        "submitBtn": "Submit review",
+        "validation": {
+          "ratingRequired": "Please select star rating.",
+          "ratingMin": "Rating must be at least 1 star.",
+          "ratingMax": "Rating cannot exceed 5 stars.",
+          "commentMax": "Comment cannot exceed 1000 characters.",
+          "imagesMax": "Only up to 3 images are allowed.",
+          "imageSizeLimit": "Image must be under 5MB.",
+          "imageTypeLimit": "Only JPG, JPEG, PNG, WEBP formats are accepted."
+        }
+      },
+      "permission": {
+        "notPurchased": "You must buy this product and receive it successfully to write a review.",
+        "alreadyReviewed": "Thank you! You have already reviewed this product.",
+        "notAllowed": "You are not eligible to review this product.",
+        "guest": "Log in with your membership account to rate this product experience.",
+        "loginBtn": "Log in now"
       }
     }
   }

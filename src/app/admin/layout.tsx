@@ -1,13 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/auth';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 import { Button } from '@/components/ui';
 import { useLogout } from '@/features/auth/hooks';
+import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { t, i18n } = useTranslation();
@@ -16,10 +16,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const { logout } = useLogout();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
   };
+
+  const closeSidebar = () => setSidebarOpen(false);
 
   const navItems = [
     {
@@ -41,15 +44,33 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   ];
 
   return (
-    <div className="min-h-screen bg-bgLight text-ink flex">
+    <div className="min-h-screen bg-bgLight text-ink flex relative overflow-x-hidden">
+      {/* BACKGROUND OVERLAY FOR MOBILE */}
+      <div
+        onClick={closeSidebar}
+        className={`fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden transition-opacity duration-300 ${
+          sidebarOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      />
+
       {/* ADMIN SIDEBAR */}
-      <aside className="fixed left-0 top-0 h-screen w-64 bg-[#121212] text-zinc-400 border-r border-borderGray z-30 select-none flex flex-col justify-between font-outfit">
+      <aside
+        className={`fixed left-0 top-0 h-screen w-64 bg-[#121212] text-zinc-400 border-r border-borderGray z-50 select-none flex flex-col justify-between font-outfit transition-transform duration-300 md:translate-x-0 ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
         <div>
           {/* Admin Logo */}
-          <div className="h-[72px] border-b border-zinc-800 flex items-center px-6">
+          <div className="h-[72px] border-b border-zinc-800 flex items-center justify-between px-6">
             <Link href="/" className="font-playfair text-white text-base font-bold tracking-[0.15em] uppercase hover:text-primaryGold transition-colors">
               FASHIONHUB ADMIN
             </Link>
+            <button
+              onClick={closeSidebar}
+              className="md:hidden w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white transition-colors cursor-pointer border-none bg-transparent"
+            >
+              <CloseOutlined style={{ fontSize: '16px' }} />
+            </button>
           </div>
           {/* Nav Links */}
           <nav className="p-4 space-y-2 text-xs font-semibold uppercase tracking-wider">
@@ -59,6 +80,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <Link
                   key={item.path}
                   href={item.path}
+                  onClick={closeSidebar}
                   className={`flex items-center space-x-3 px-4 py-3 rounded-none transition-colors ${
                     isActive
                       ? 'bg-primaryGold text-ink font-bold border-l-4 border-white'
@@ -72,8 +94,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </nav>
         </div>
         
-        {/* User profile section at the bottom of sidebar */}
-        <Link href="/admin/profile" className="p-4 border-t border-zinc-800 text-xs block hover:bg-zinc-900 transition-colors">
+        {/* User profile section at bottom of sidebar */}
+        <Link href="/admin/profile" onClick={closeSidebar} className="p-4 border-t border-zinc-800 text-xs block hover:bg-zinc-900 transition-colors">
           <div className="text-white font-bold font-outfit">
             {user ? user.name : 'Administrator'}
           </div>
@@ -83,24 +105,37 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </Link>
       </aside>
  
-       {/* RIGHT CONTAINER */}
-       <div className="flex-grow pl-64 flex flex-col min-h-screen">
-         {/* ADMIN TOPBAR */}
-         <header className="sticky top-0 z-20 h-[72px] px-6 bg-bgLight border-b border-borderGray flex items-center justify-between font-outfit">
-           <div className="text-[10px] font-medium uppercase tracking-wider text-charcoal">
-             <span>{t('admin.breadcrumb.admin', 'Quản trị')}</span>
-             <span className="mx-2 text-borderGray">/</span>
-             <span className="text-ink font-semibold">
-               {pathname.includes('categories')
-                 ? t('admin.breadcrumb.categories', 'Danh mục')
-                 : pathname.includes('orders')
-                 ? t('admin.breadcrumb.orders', 'Đơn hàng')
-                 : pathname.includes('profile')
-                 ? t('admin.breadcrumb.profile', 'Hồ sơ cá nhân')
-                 : t('admin.breadcrumb.products', 'Sản phẩm')}
-             </span>
-           </div>
-          <div className="flex items-center space-x-6">
+      {/* RIGHT CONTAINER */}
+      <div className="flex-grow pl-0 md:pl-64 flex flex-col min-h-screen w-full">
+        {/* ADMIN TOPBAR */}
+        <header className="sticky top-0 z-30 h-[72px] px-4 md:px-6 bg-bgLight border-b border-borderGray flex items-center justify-between font-outfit">
+          <div className="flex items-center gap-3">
+            {/* Hamburger for mobile */}
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="md:hidden flex items-center justify-center w-9 h-9 text-ink hover:text-primaryGold transition-colors cursor-pointer border-none bg-transparent"
+              aria-label="Mở sidebar admin"
+            >
+              <MenuOutlined style={{ fontSize: '18px' }} />
+            </button>
+
+            {/* Breadcrumb */}
+            <div className="text-[10px] font-medium uppercase tracking-wider text-charcoal">
+              <span>{t('admin.breadcrumb.admin', 'Quản trị')}</span>
+              <span className="mx-2 text-borderGray">/</span>
+              <span className="text-ink font-semibold">
+                {pathname.includes('categories')
+                  ? t('admin.breadcrumb.categories', 'Danh mục')
+                  : pathname.includes('orders')
+                  ? t('admin.breadcrumb.orders', 'Đơn hàng')
+                  : pathname.includes('profile')
+                  ? t('admin.breadcrumb.profile', 'Hồ sơ cá nhân')
+                  : t('admin.breadcrumb.products', 'Sản phẩm')}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-4 md:space-x-6">
             {/* Language Switcher */}
             <div className="flex gap-1.5 select-none text-[10px] font-bold font-outfit shrink-0 items-center">
               <span 
@@ -130,7 +165,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </header>
 
         {/* CONTENT AREA */}
-        <main className="px-6 py-8 flex-grow">
+        <main className="px-4 md:px-6 py-6 md:py-8 flex-grow w-full">
           <div className="max-w-[1360px] mx-auto space-y-6">
             {children}
           </div>
