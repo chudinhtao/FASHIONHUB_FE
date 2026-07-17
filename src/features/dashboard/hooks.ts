@@ -8,7 +8,7 @@ import { useCategories } from '@/features/category/hooks';
 export const useDashboardOverview = () => {
   const { t } = useTranslation();
   const router = useRouter();
-  
+
   const { data: productsResponse, isLoading: isLoadingProducts } = useProducts({ limit: 1 });
   const { data: categories, isLoading: isLoadingCategories } = useCategories();
 
